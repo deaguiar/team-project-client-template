@@ -1,0 +1,22 @@
+﻿STARTUP PITCH:
+Sam Ginzburg, Daoxu Ye, Michael O’Loughlin, Henrique DeAguiar, Philip Walne and Kevin Silva present:
+ 
+‘GeoPost’
+ 
+GeoPost is a new interactive web application and a fresh approach to the convoluted social media market today. In its core, GeoPost promises to bring together communities of individuals by allowing for geolocated message posting. Our application would work much like some of the applications that exist today, such as Yik Yak, Erodr, Reddit, 4Chan and even Twitter but with a splash of Waze. Here’s our idea: Imagine an app that allows for this on a global scale in real time. Imagine browsing an interactive globe where you can browse through geolocated posts. A key difference is that posting is not limited to your current location, so you can make and view posts across the planet. Posts can be voted up or down, or reported by users if necessary.
+
+
+There are some considerable challenges in launching this web application.
+
+
+The first major challenge will be our proposed voting and filtration systems for posts. Our group has little experience in NLP and this is a problem that we are excited to tackle. Within our scope, we believe that the implementation of a system to handle keyword filtering and sentiment analysis will be possible. Another issue with this is the language barrier, global posting means that people will be using their respective languages. We would like to focus on english and hope that the inclusion of multimedia into the posts can provide some translation regardless.
+
+
+The second major challenge would be managing the various amounts and types of data. Our company would have text, multimedia, usernames/passwords, tags, locations, posts and votes. which would have to be easily accessed by the user. We have members on our group that have experience creating and managing databases as well the specific use/management of MongoDB databases and schema.
+
+
+Lastly, we would also have to eliminate posts deemed to be unfit for our web application such as discriminatory remarks, threats, bullying, etc. We would have to create a filter that catches all of these unwanted posts. In addition to this, we will have accounts with moderator and admin permissions, which are able to delete posts and in extreme cases, ban certain users.
+Overall, GeoPost is not claiming to reinvent the wheel in social media. Our goal is to bring people around the globe together in a fun and interactive way.[a]
+
+
+[a]This is a start. I based this on what I understood what our web application is. I might have missed a few things.   Change them to your like.
