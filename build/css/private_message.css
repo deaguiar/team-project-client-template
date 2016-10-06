@@ -1,3 +1,11 @@
+.message-bar {
+    width: auto;
+}
+
+.local-bar {
+    width: auto;
+}
+
 body {
-    padding: 65px;
+    background: #66ced6;
 }
