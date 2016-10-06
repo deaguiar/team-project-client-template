@@ -42,3 +42,17 @@ body {
 .nav-pills>li.active>a {
   background-color: #102542;
 }
+
+.upvote {
+  color: green;
+  font-size: 1.8em;
+  padding-right: 15px;
+  margin-left: 82px;
+
+}
+
+.downvote {
+  color: red;
+  font-size: 1.8em;
+
+}
