@@ -1,6 +1,7 @@
 body {
-  padding-top: 60px;
+  padding-top: 70px;
   align-self: center;
+  background-color: #CDD7D6;
 }
 
 .col-centered {
@@ -32,4 +33,12 @@ body {
 
 .text {
   margin-right: 0px;
+}
+
+.panel-colors {
+  background-color: #FFFFFF;
+}
+
+.nav-pills>li.active>a {
+  background-color: #102542;
 }
