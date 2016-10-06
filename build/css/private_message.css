@@ -6,6 +6,11 @@
     background-color: #102542;
 }
 
+.glyphicon-envelope {
+    margin-bottom: -2px;
+    padding-bottom: -2px;
+}
+
 .navbar .navbar-brand, .navbar .navbar-brand:hover {
     color: white;
 }
