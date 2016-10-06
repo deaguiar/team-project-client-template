@@ -2,6 +2,13 @@
     width: auto;
 }
 
+body {
+    margin-left: 0px;
+    margin-top: 2px;
+    margin-right: 0px;
+    background-color: #CDD7D6
+}
+
 .local-bar {
     width: auto;
 }
@@ -21,4 +28,13 @@
 .local-user {
     padding: 0px;
     margin-bottom: 210px;
+}
+
+.message-button {
+    padding-top: 10px;
+}
+
+.new-message {
+    margin-right: 20px;
+    margin-top: -5px;
 }
