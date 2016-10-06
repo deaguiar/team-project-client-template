@@ -4,6 +4,10 @@ body {
   background-color: #CDD7D6;
 }
 
+.navbar-padding {
+  padding-right: 25px;
+}
+
 .col-centered {
   float: none;
   margin: 0 auto;
@@ -37,6 +41,10 @@ body {
 
 .panel-colors {
   background-color: #FFFFFF;
+}
+
+.navbar-color {
+  background-color: #102542;
 }
 
 .nav-pills>li.active>a {
