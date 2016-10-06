@@ -1,3 +1,22 @@
+.table {
+  background-color: white;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
 body {
-  padding: 60px;
+  background-color: #CDD7D6;
+}
+.table-panel {
+ background-color: white;
+}
+
+.navbar {
+  background-color: #102542;
+}
+
+.right-bar {
+  background-color: white;
 }
