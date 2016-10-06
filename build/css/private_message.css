@@ -1,3 +1,24 @@
-body {
-    padding: 65px;
+.message-bar {
+    width: auto;
+}
+
+.local-bar {
+    width: auto;
+}
+.message-bar {
+    width: auto;
+    padding-left: 55px;
+}
+
+.message-list {
+    padding-left: 55px;
+}
+
+.incoming-message {
+    margin-left: 10px;
+}
+
+.local-user {
+    padding: 0px;
+    margin-bottom: 210px;
 }
