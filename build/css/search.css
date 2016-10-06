@@ -1,0 +1,31 @@
+body {
+  padding-top: 60px;
+  align-self: center;
+}
+
+.col-centered {
+  float: none;
+  margin: 0 auto;
+}
+
+.text-wrap {
+  width: auto;
+  display: block; /* or inline-block */
+  overflow: hidden;
+  word-wrap: break-word;
+  max-height: 200px;
+  line-height: 2.0em;
+}
+
+.post-options {
+  margin-top: 15px;
+  position: relative;
+  margin-right: -100px;
+}
+
+.override-boostrap-hyperlink {
+  padding-top: 0px !important;
+  padding-right: 0px !important;
+  padding-left: 0px !important;
+  padding-bottom: 0px !important;
+}
