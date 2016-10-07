@@ -1,3 +1,69 @@
-navbar{
-	margin-top: 60px;
+body {
+  padding-top: 70px;
+  align-self: center;
+  background-color: #CDD7D6;
+}
+
+.navbar-padding {
+  padding-right: 25px;
+}
+
+.col-centered {
+  float: none;
+  margin: 0 auto;
+}
+
+.text-wrap {
+  width: auto;
+  display: block; /* or inline-block */
+  overflow: hidden;
+  word-wrap: break-word;
+  max-height: 200px;
+  line-height: 2.0em;
+}
+
+.post-options {
+  margin-top: 15px;
+  position: relative;
+  margin-right: -100px;
+}
+
+.override-boostrap-hyperlink {
+  padding-top: 0px !important;
+  padding-right: 0px !important;
+  padding-left: 0px !important;
+  padding-bottom: 0px !important;
+}
+
+.text {
+  margin-right: 0px;
+}
+
+.panel-colors {
+  background-color: #FFFFFF;
+}
+
+.navbar-color {
+  background-color: #102542;
+}
+
+.nav-pills>li.active>a {
+  background-color: #102542;
+}
+
+.upvote {
+  color: green;
+  font-size: 1.8em;
+  padding-right: 15px;
+  margin-left: 82px;
+
+}
+
+.downvote {
+  color: red;
+  font-size: 1.8em;
+}
+
+.navbar .glyphicon-globe {
+    top: 2px;
 }
