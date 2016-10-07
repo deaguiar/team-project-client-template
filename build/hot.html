@@ -10,7 +10,7 @@
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
 
-    <title>Messaging</title>
+    <title>Top Posts</title>
 </head>
 <body>
 <!-- navigation bar -->
@@ -82,74 +82,24 @@
 <div class="container">
     <!--Left columns empty-->
     <div class="row">
-        <div class="col-md-3">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <ul class="list-inline message-bar">
-                        <li role="presentation" class="active">
-                            <span class="glyphicon glyphicon-pushpin"><b>Nearby</b></span>
-                        </li>
-                        <li role="presentation">
-                            <!-- Pull this to the right -->
-                            <span class="glyphicon glyphicon-envelope">All</span>
-                        </li>
-                    </ul>
-                </div>
-                <div class="panel-body local-user">
-                    <ul class="nav nav-pills message-list">
-                        <li role="presentation">
-                            <a href="#">
-                            <strong>Billy Bob</strong>
-                                <span class="badge pull-right">1</span>
-                            </a>
-                        </li>
-                        <li role="presentation" class="active">
-                            <a href="#">
-                                <strong>Tim Richards</strong>
-                            </a>
-                        </li>
-                        <li role="presentation">
-                            <a href="#">
-                                <strong>Sally Musket</strong>
-                            </a>
-                        </li>
-                        <li role="presentation">
-                            <a href="#">
-                                <strong>Elliot Anderson</strong>
-                            </a>
-                        </li>
-                        <li role="presentation">
-                            <a href="#">
-                                <strong>Mike Tyson</strong>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
         <!--Middle column, show message / messages -->
-        <div class="row col-md-9">
+        <div class="row col-md-12">
             <div class="panel">
                 <div class="panel-heading">
-                    Tim Richards
+                    <strong>Top Posts</strong>
                     <div class="btn-group pull-right" role="group">
-                        <button type="button" class="btn btn-default new-message">
-                            <span class="glyphicon glyphicon-plus">New Message</span>
-                        </button>
-                        <button type="button" class="btn btn-default new-message">
-                            <span class="glyphicon glyphicon-road">Last Location</span>
-                        </button>
-                    </div>
-                    <hr>
-                    <div class="media">
-                        <div class="media-left media-top">
-                            <!--Close padding for this image-->
-                            <img src="img/BibleThump.png" width="40" height="40">
-                            Last checked in: <b>Umass Amherst</b>
-                            <br><sub><span class="glyphicon glyphicon-time">Now</span></sub>
+                      <div class="dropdown">
+                        <button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Filter By: <span class="caret"></span></button>
+                          <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                            <li role="presentation"><a role="menuitem" href="#">All Time</a></li>
+                            <li role="presentation" class="divider"></li>
+                            <li role="presentation"><a role="menuitem" href="#">Location</a></li>
+                            <li role="presentation"><a role="menuitem" href="#">Groups</a></li>
+                            <li role="presentation"><a role="menuitem" href="#">Post Date</a></li>
+                          </ul>
                         </div>
                     </div>
-                <hr>
+                    <hr>
                 </div>
                 <!--Messages here -->
                     <ul class="media-list"><!--Pad this more towards the center -->
@@ -161,15 +111,8 @@
                             </div>
                         </li>
                         <li class="media">
-                            <div class="pull-right">
-                                Yea in room 1337, its the building with the pool next to the chocolate factory.
-                                <img src="img/kappa.png" width="40" height="40">
-                                <br><sub>23 minutes ago</sub>
-                            </div>
-                        </li>
-                        <li class="media">
                             <div class="pull-left incoming-message">
-                                <img src="img/BibleThump.png" width="40" height="40">I'll take the escalator!
+                                <img src="img/BibleThump.png" width="40" height="40"> I'll take the escalator!
                                 <sub><br class="pull-left">1 minute ago</sub>
                             </div>
                         </li>
