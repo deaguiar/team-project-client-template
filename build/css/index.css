@@ -26,10 +26,12 @@ a1,a1:visited{
   font-variant-position: normal;
 
 }
+
 .navbar {
 background-color: #102542;
 }
 .feed {
+
   background-color:#FFFFFF;
   margin-top: 10px;
   border-top-right-radius: 10px;
@@ -37,47 +39,43 @@ background-color: #102542;
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
   padding-left: 5px;
-  padding-right: 5px;
+  padding-right: 40px;
   padding-top: 15px;
-  padding-bottom: 2px;
+  padding-bottom: 5px;
 }
 .navbar .navbar-brand, .navbar .navbar-brand:hover {
 color: white;
 }
 .navbar button {
  background-color:#white;
- transparent;
  border: none;
- /* changes color of font on buttons*/
  color:#102542;
 }
-/* Make buttons slightly darker when the user hovers over it */
 .navbar button:hover {
  background-color:
- transparent; color: #22345c;
+ color: #22345c;
   border: none;
 }
 .navbar button:active, .navbar button:focus, .navbar button:active:focus {
-background-color: transparent;
+background-color:
 color: white;
 border: none;
-/* Removes halo and shadow on button when clicked. */ outline: none;
+outline: none;
 box-shadow: none; }
-/* Search button style -- overrides the above two rules for the search
-   button */
+
 .navbar form button,
 .navbar form button:hover, .navbar form button:focus, .navbar form button:active, .navbar form button:active:focus {
 background-color: lightgrey;
 color: white;
-/* Make it a bit wider. */
 width: 50px;
 /* Make the border's curve more gentle */
 border-top-right-radius: 10px;
 border-bottom-right-radius: 10px;
-/* Apply a light-grey border color. You can specify colors as names, rgb
-     triplets, or hex numbers. */
-border-top: 1px solid rgb(204, 204, 204); border-bottom: 1px solid rgb(204, 204, 204); border-right: 1px solid rgb(204, 204, 204);
-/* Removes halo and shadow on button when clicked. */ outline: none;
+border-top: 1px solid rgb(204, 204, 204);
+border-bottom: 1px solid rgb(204, 204, 204);
+border-right: 1px solid rgb(204, 204, 204);
+/* Removes halo and shadow on button when clicked. */
+outline: none;
 box-shadow: none;
 }
 .feed-title{
@@ -103,7 +101,6 @@ box-shadow: none;
   padding-right: 5px;
   padding-top: 2px;
   padding-bottom: 2px;
-
 }
 .glyphicon-map-marker{
   color: red;
@@ -118,4 +115,16 @@ box-shadow: none;
 .red{
   color:red;
   background-color:red;
+}
+.glyphicon-envelope{
+  top:2px;
+  padding-right: 5px;
+}
+.glyphicon-envelope{
+    top: 2px;
+    padding-right: 5px;
+}
+.glyphicon-globe{
+     top: 2px;
+    padding-right: 5px;
 }
