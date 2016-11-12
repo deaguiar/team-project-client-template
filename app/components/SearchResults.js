@@ -1,6 +1,7 @@
 import React from 'react';
 import {getAllPostsWithText, getUserData} from '../server.js';
 import {unixTimeToString} from '../util.js'
+import Navbar from './navbar'
 
 export default class SearchResults extends React.Component
 {
@@ -13,7 +14,8 @@ export default class SearchResults extends React.Component
   {
     return (
     <div>
-          <div className="container" style={{'padding-top': 70 + 'px'}}>
+          <Navbar/>
+          <div className="container" style={{paddingTop: 70 + 'px'}}>
 
           <div className="col-md-11 col-centered">
             <div>

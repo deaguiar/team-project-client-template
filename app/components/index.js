@@ -1,5 +1,5 @@
 import React from 'react';
-
+import Navbar from './navbar'
 export default class Index extends React.Component
 {
   constructor(props)
@@ -10,7 +10,10 @@ export default class Index extends React.Component
   render()
   {
     return (
-      <div style={{'padding-top': 70 + 'px'}}>
+      <div>
+      <Navbar />
+
+      <div style={{'paddingTop': 70 + 'px'}}>
       <div className = "container">
            <div className ="row">
 
@@ -173,6 +176,7 @@ export default class Index extends React.Component
               </div>
                 </div>
 
+      </div>
       </div>
     )
   }
