@@ -1,11 +1,32 @@
 import React from 'react';
-
+import { Router } from 'react-router'
 export default class Navbar extends React.Component
 {
   constructor(props)
   {
     super(props);
+    this.searchText = "Search all posts here";
   }
+
+
+  onChange(text)
+  {
+    this.searchText = text.target.value;
+  }
+
+  onChangeForm(e)
+  {
+    e.target.formAction = "#/search/" + this.searchText;
+  }
+
+  handleSubmit(event, text)
+  {
+      event.preventDefault();
+      var loc = this._reactInternalInstance._context.router.createLocation('search/');
+      loc.query = text;
+      this._reactInternalInstance._context.router.transitionTo(loc);
+  }
+
 
   render()
   {
@@ -57,16 +78,17 @@ export default class Navbar extends React.Component
             </div>
           </div>
 
-          <form className="navbar-form navbar-right navbar-padding" role="search">
+          <form className="navbar-form navbar-right navbar-padding" role="search" onSubmit = {(e) => this.handleSubmit(e, this.searchText)}>
             <div className="input-group">
-              <input type="text" className="form-control" value="Lorem ipsum"/>
+              <input type="text" className="form-control" onKeyUp = {(e) => this.onChange(e)} />
               <span className="input-group-btn">
-                <button type="submit" className="btn btn-default">
+                <button type="submit" className="btn btn-default" onSubmit = {(e) => this.handleSubmit(e, this.searchText)}>
                   <span className="glyphicon glyphicon-search"></span>
                 </button>
               </span>
             </div>
           </form>
+
         </div>
       </nav>
     )

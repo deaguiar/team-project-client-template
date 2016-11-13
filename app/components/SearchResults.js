@@ -1,6 +1,6 @@
 import React from 'react';
 import {getAllPostsWithText, getUserData} from '../server.js';
-import {unixTimeToString} from '../util.js'
+import {unixTimeToString, createMapURL} from '../util.js'
 import Navbar from './navbar'
 
 export default class SearchResults extends React.Component
@@ -10,8 +10,11 @@ export default class SearchResults extends React.Component
     super(props);
   }
 
+
   render()
   {
+    var query = this.props.location.query;
+
     return (
     <div>
           <Navbar/>
@@ -19,8 +22,12 @@ export default class SearchResults extends React.Component
 
           <div className="col-md-11 col-centered">
             <div>
-              {getAllPostsWithText("Lorem ipsum").map(function(post)
+              {getAllPostsWithText(query).map(function(post)
                 {
+                  console.log(post);
+                  console.log(post.lat);
+                  console.log(post.long);
+                  console.log(this);
                   return (
                     <div className="panel panel-default panel-colors">
                       <div className="panel-body">
@@ -28,7 +35,7 @@ export default class SearchResults extends React.Component
                           <div className="col-md-10 col-centered">
                             <ul className="nav nav-pills">
                               <li role="presentation">
-                                <img width="200" src="http://maps.googleapis.com/maps/api/staticmap?center=42.38666512+-72.52333124&zoom=13&scale=1&size=200x200&maptype=roadmap&key=AIzaSyDGuGiLXDNcw84JU6I7ldZF63sxBLP6z7s&format=png&visual_refresh=true&markers=size:mid%7Ccolor:0xff0000%7Clabel:1%7C42.389825, -72.528267" alt="Google Map of 42.389825, -72.528267"/>
+                                <img width="200" src={createMapURL(post.lat, post.long)}/>
                               </li>
                               <li className="pull-right">
                                 <a href="/profile.html" className="override-boostrap-hyperlink">{getUserData(post.user).fullName}</a>

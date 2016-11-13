@@ -9,6 +9,7 @@ import { IndexRoute, Router, Route, browserHistory, Link, hashHistory } from 're
 ReactDOM.render((
   <Router history={hashHistory}>
     <Route path="/" component={Index}/>
+    <Route path="search/" component={SearchResults}/>
     <Route path="search/:query" component={SearchResults}/>
   </Router>
 ),document.getElementById('debug'));
