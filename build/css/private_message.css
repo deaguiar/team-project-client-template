@@ -1,60 +1,14 @@
-.message-bar {
-    width: auto;
+.navbar-offset {
+    padding-top: 53px;
 }
 
-.navbar {
-    background-color: #102542;
+.message-bar {
+    width: auto;
 }
 
 .glyphicon-envelope {
     margin-bottom: -2px;
     padding-bottom: -2px;
-}
-
-.navbar .navbar-brand, .navbar .navbar-brand:hover {
-    color: white;
-}
-.navbar button {
-    background-color: white;
-    border: none;
-    /* changes color of font on buttons*/
-    color: #102542;
-}
-/* Make buttons slightly darker when the user hovers over it */
-.navbar button:hover {
-    background-color:
-            transparent; color: #22345c;
-    border: none;
-}
-.navbar button:active, .navbar button:focus, .navbar button:active:focus {
-    background-color: transparent;
-    color: white;
-    border: none;
-    /* Removes halo and shadow on button when clicked. */ outline: none;
-    box-shadow: none; }
-/* Search button style -- overrides the above two rules for the search
-   button */
-.navbar form button,
-.navbar form button:hover, .navbar form button:focus, .navbar form button:active, .navbar form button:active:focus {
-    background-color: lightgrey;
-    color: white;
-    /* Make it a bit wider. */
-    width: 50px;
-    /* Make the border's curve more gentle */
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
-    /* Apply a light-grey border color. You can specify colors as names, rgb
-         triplets, or hex numbers. */
-    border-top: 1px solid rgb(204, 204, 204); border-bottom: 1px solid rgb(204, 204, 204); border-right: 1px solid rgb(204, 204, 204);
-    /* Removes halo and shadow on button when clicked. */ outline: none;
-    box-shadow: none;
-}
-
-body {
-    margin-left: 0px;
-    margin-top: 2px;
-    margin-right: 0px;
-    background-color: #CDD7D6
 }
 
 .local-bar {
