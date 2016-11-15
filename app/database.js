@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 // Modify with your startup's name!
-var startupName = null;
+var startupName = 'Geopost';
 
 // Put your mock objects here, as in Workshop 4
 var initialData =
