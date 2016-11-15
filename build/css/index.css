@@ -56,6 +56,11 @@ color: white;
  color: #22345c;
   border: none;
 }
+.messageLink {
+  cursor: hand;
+  cursor: pointer;
+}
+
 .navbar button:active, .navbar button:focus, .navbar button:active:focus {
 background-color:
 color: white;

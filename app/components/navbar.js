@@ -1,5 +1,5 @@
 import React from 'react';
-import { Router } from 'react-router'
+import { Router, Link } from 'react-router'
 export default class Navbar extends React.Component
 {
   constructor(props)
@@ -47,9 +47,9 @@ export default class Navbar extends React.Component
             <span className="glyphicon glyphicon-fire" style={{color: "white"}, {top: 2 + 'px'}, {top: 2 + 'px'}, {paddingRight: 5 + 'px'}}></span>Hot
           </a>
 
-          <a className="navbar-brand" href="private_message.html" style={{color: "white"}}>
+          <Link to="/messages"><a className="navbar-brand messageLink" style={{color: "white"}}>
             <span className="glyphicon glyphicon-envelope" style={{color: "white"}, {top: 2 + 'px'}, {top: 2 + 'px'}, {paddingRight: 5 + 'px'}}></span>Messages
-          </a>
+          </a></Link>
         </div>
 
         <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
