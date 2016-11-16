@@ -2,10 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import SearchResults from './components/SearchResults'
 import Index from './components/index'
-import PrivateMessage from './components/pmessage/messageframe';
+import PrivateMessage from './components/messageframe';
 
 import { IndexRoute, Router, Route, browserHistory, Link, hashHistory } from 'react-router'
-
 
 ReactDOM.render((
   <Router history={hashHistory}>

@@ -14,33 +14,28 @@ var initialData =
     {
       "id": 1,
       "fullName": "Person 1",
+      "pic": "bibleThumb.png",
       "chats":{}
     },
     "2":
     {
       "id": 2,
       "fullName": "Person 2",
+      "pic": "bibleThump.png",
       "chats":{}
     },
     "3":
     {
       "id": 3,
       "fullName": "Tim Richards",
-      "chats":{ //Can only have 1 chat with each person.
-        "2": [
+      "pic": "kappa.png",
+      "chats":[
           {
-            "_id": 0,
-            "user": 2,
-            "message": "Hey Timmeh!",
-            "t_stamp": 340234
-          }, {
-            "_id": 1,
-            "user": 3,
-            "message": "What you want dude",
-            "t_stamp": 450000
+            "chatID": 2,//id of user in the chat
+            "timestamp": 39487934,
+            "messages": []
           }
-        ]
-      }//end of chats
+      ]
     }
   },
   "posts":
