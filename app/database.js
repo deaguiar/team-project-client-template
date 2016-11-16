@@ -14,21 +14,21 @@ var initialData =
     {
       "id": 1,
       "fullName": "Person 1",
-      "pic": "bibleThumb.png",
-      "chats":{}
+      "pic": "img/profile_img.jpg",
+      "chats":[]
     },
     "2":
     {
       "id": 2,
       "fullName": "Person 2",
-      "pic": "bibleThump.png",
-      "chats":{}
+      "pic": "img/BibleThump.png",
+      "chats":[]
     },
     "3":
     {
       "id": 3,
       "fullName": "Tim Richards",
-      "pic": "kappa.png",
+      "pic": "img/kappa.png",
       "chats":[
           {
             "chatID": 2,//id of user in the chat
