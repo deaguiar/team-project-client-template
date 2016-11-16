@@ -14,6 +14,7 @@ var initialData =
     {
       "id": 1,
       "fullName": "Person 1",
+      "userName": "Banana",
       "pic": "bibleThumb.png",
       "chats":{}
     },
@@ -21,6 +22,7 @@ var initialData =
     {
       "id": 2,
       "fullName": "Person 2",
+      "userName": "Apple",
       "pic": "bibleThump.png",
       "chats":{}
     },
@@ -28,6 +30,7 @@ var initialData =
     {
       "id": 3,
       "fullName": "Tim Richards",
+      "userName": "Orange",
       "pic": "kappa.png",
       "chats":[
           {
