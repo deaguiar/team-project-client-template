@@ -32,8 +32,19 @@ var initialData =
       "chats":[
           {
             "chatID": 2,//id of user in the chat
-            "timestamp": 39487934,
-            "messages": []
+            "read": false,
+            "messages": [
+                {
+                  "from": 2,
+                  "message": "Hello!",
+                  "timestamp": 2354245,
+                },
+                {
+                  "from": 3,
+                  "message": "Hi",
+                  "timestamp": 2354245,
+                }
+            ]
           }
       ]
     }

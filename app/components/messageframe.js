@@ -1,7 +1,7 @@
 import React from 'react';
 import Navbar from './navbar.js';
 import {getUserData} from '../server.js';
-import Conversation from './pmessage/conversation.js';
+import Conversation from './conversation.js';
 
 export default class MessageFrame extends React.Component {
     constructor(props) {
@@ -63,9 +63,13 @@ export default class MessageFrame extends React.Component {
                                   </button>
                               </div>
                               <hr>
-                              <div className="media">
-
-                              </div>
+                                  <div className="media-list">
+                                      {this.state.chats[this.state.active].messages.map( (map, i) => {
+                                          return (
+                                              <Messages key={i} chatUser={getUserData(map.chatID)} data={map} />
+                                          );
+                                      })}
+                                  </div>
                               </hr>
                           </div>
                       </div>
