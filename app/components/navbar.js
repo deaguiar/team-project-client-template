@@ -88,7 +88,6 @@ export default class Navbar extends React.Component
               </span>
             </div>
           </form>
-
         </div>
       </nav>
     )
