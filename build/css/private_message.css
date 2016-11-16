@@ -1,9 +1,14 @@
-.navbar-offset {
-    padding-top: 53px;
+.activeConvo {
+    background-color: lightblue;
+    border: none;
 }
 
-.message-bar {
-    width: auto;
+.otherChatter {
+
+}
+
+.youChatter {
+
 }
 
 .glyphicon-envelope {
@@ -39,8 +44,4 @@
 .new-message {
     margin-right: 20px;
     margin-top: -5px;
-}
-
-.top-posts-votes {
-  left: 85px;
 }

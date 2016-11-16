@@ -1,4 +1,4 @@
-import {readDocument} from './database.js';
+import {readDocument, writeDocument} from './database.js';
 
 /**
  * Emulates how a REST call is *asynchronous* -- it calls your function back
@@ -18,6 +18,18 @@ export function getUserData(userID)
   return userData;
 }
 
+export function messageUser(user1ID, chatID, text, cb) {
+    var user1 = readDocument("users", user1ID);
+
+    writeDocument("users", user1);
+    user1.chats[chatID].messages.push( {
+        "from": user1ID,
+        "message": text,
+        "timestamp": new Date().getTime()
+    });
+    writeDocument("users", user1);
+    emulateServerReturn(user1, cb);
+}
 
 export function getAllPostsWithText(text)
 {

@@ -1,25 +1,18 @@
 import React from 'react';
-import {getAllPostsWithText, getUserData} from '../server.js';
 import {unixTimeToString, createMapURL} from '../util.js'
 import Navbar from './navbar'
 
-export default class SearchResults extends React.Component
+export default class Profile extends React.Component
 {
   constructor(props)
   {
     super(props);
   }
 
-  onCommentsClick(postID)
-  {
-    console.log(postID);
-  }
-
   render()
   {
     var query = this.props.location.query;
     var posts = getAllPostsWithText(query)
-
     if (posts.length > 0 && query != "")
     {
     return (
@@ -44,7 +37,7 @@ export default class SearchResults extends React.Component
                               </li>
                               <li className="pull-right">
                                 <a href="/profile.html" className="override-boostrap-hyperlink">{getUserData(post.user).fullName}</a>
-                                <br></br><text>{unixTimeToString(post.date)}</text>
+                                <br><text>{unixTimeToString(post.date)}</text></br>
                               </li>
                               <li role="presentation" className="active">
                                 <div className="controls text-wrap">
@@ -70,8 +63,8 @@ export default class SearchResults extends React.Component
 
                             <ul className="nav nav-pills pull-right post-options">
                               <li role="presentation" className="active">
-                                <button onClick={() => this.onCommentsClick(post.postID)}><span className="glyphicon glyphicon-pencil">
-                                </span> <strong>View Comments</strong></button>
+                                <a href="#"><span className="glyphicon glyphicon-pencil">
+                                </span> <strong>View Comments</strong></a>
                               </li>
                               <li role="presentation" className="active">
                                 <a href="#"><span className="glyphicon glyphicon-triangle-right">
@@ -83,8 +76,8 @@ export default class SearchResults extends React.Component
                       </div>
                     </div>
                   )
-                }, this)
-              }
+                }
+            )}
           </div>
           </div>
 

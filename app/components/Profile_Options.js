@@ -1,7 +1,8 @@
 import React from 'react';
 
 export default class Profile_Options extends React.Component {
-  render () {
+  render(){
+
     return (
       <div>
         <div className="row">
