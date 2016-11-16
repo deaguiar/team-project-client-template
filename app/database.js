@@ -37,12 +37,12 @@ var initialData =
                 {
                   "from": 2,
                   "message": "Hello!",
-                  "timestamp": 2354245,
+                  "timestamp": 2354245
                 },
                 {
                   "from": 3,
                   "message": "Hi",
-                  "timestamp": 2354245,
+                  "timestamp": 2354245
                 }
             ]
           }

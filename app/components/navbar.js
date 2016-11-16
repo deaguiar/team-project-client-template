@@ -28,6 +28,7 @@ export default class Navbar extends React.Component
   }
 
 
+
   render()
   {
     return (
@@ -49,7 +50,7 @@ export default class Navbar extends React.Component
 
           <Link to="/messages"><a className="navbar-brand handIcon" style={{color: "white"}}>
             <span className="glyphicon glyphicon-envelope" style={{color: "white"}, {top: 2 + 'px'}, {top: 2 + 'px'}, {paddingRight: 5 + 'px'}}></span>Messages
-          </a></Link>
+            </a></Link>
         </div>
 
         <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -65,10 +66,11 @@ export default class Navbar extends React.Component
             </div>
 
             <div className="btn-group" role="group" href = "profile_settings.html">
-              <button type="button" className="btn btn-default navbar-btn">
-              <span className="glyphicon glyphicon-wrench"></span>
-                Settings
-              </button>
+              <Link to="settings/">
+                <button type="button" className="btn btn-default navbar-btn">
+                  <span className="glyphicon glyphicon-wrench"></span>
+                  Settings
+              </button></Link>
             </div>
             <div className="btn-group" role="group">
               <button type="button" className="btn btn-default navbar-btn">
