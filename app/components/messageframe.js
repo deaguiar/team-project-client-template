@@ -1,6 +1,6 @@
 import React from 'react';
 import Navbar from './navbar.js';
-import {getUserData} from '../server.js';
+import {getUserData, messageUser} from '../server.js';
 import Conversation from './conversation.js';
 import Messages from './messages.js'
 
@@ -15,12 +15,30 @@ export default class MessageFrame extends React.Component {
         return this.state.active > -1;
     }
 
+    handleChange(e) {
+        this.setState({ value: e.target.value });
+    }
+
     getNameOfChat() {
         return getUserData(this.state.chats[this.state.active].chatID).fullName;
     }
 
     isChatActive(chatId) {
         return chatId == this.state.active;
+    }
+
+    handleMessageEvent(event) {
+        event.preventDefault();
+        if(!this.hasActiveChat())
+            return;
+        if(event.button == 0) {
+            var text = this.state.value.trim();
+            var callback = (updatedMessage) => {
+                this.setState(updatedMessage);
+            }
+            messageUser(this.state.id, this.state.active, text, callback); //only will update ourselves for now!
+            //messageUser(this.state.chats[this.state.active].chatID, text, callback);
+        }
     }
 
   render() {
@@ -75,6 +93,18 @@ export default class MessageFrame extends React.Component {
                                           );
                                       })}
                                   </div>
+                          </div>
+                          <div className="panel-footer">
+                              <div className="input-group">
+                                  <input type="text" className="form-control message-bar" placeholder="Send a message"
+                                         value={this.state.value}
+                                         onChange={(e) => this.handleChange(e)}/>
+                                    <span className="input-group-btn">
+                                        <button type="submit" className="btn btn-default" onClick={(e) => this.handleMessageEvent(e)}>
+                                            <span className="glyphicon glyphicon-send" />
+                                        </button>
+                                    </span>
+                              </div>
                           </div>
                       </div>
                   </div>
