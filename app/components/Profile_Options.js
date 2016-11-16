@@ -1,17 +1,12 @@
 import React from 'react';
 
-export default class Profile_Options extends React.Components {
-  constructor(props) {
-    super(props);
-  }
-
-  render(){
+export default class Profile_Options extends React.Component {
+  render () {
     return (
       <div>
-        <h1>Good</h1>
-        /*<div className="row">
+        <div className="row">
           <div className="col-md-12">
-            <img src="img/profile_img.jpg" width="75%" />
+            <img src="img/profile_img.jpg" style={{width:'75%'}} />
             <br /><a href="#">Update Profile Picture</a>
           </div>
         </div>
@@ -34,7 +29,7 @@ export default class Profile_Options extends React.Components {
               Followers
             </a>
           </li>
-        </ul>*/
+        </ul>
       </div>
     )
   }

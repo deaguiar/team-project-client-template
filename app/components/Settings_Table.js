@@ -1,14 +1,10 @@
 import React from 'react';
 
 export default class Settings_Table extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render(){
+  render() {
     return(
       <div>
-        <table className = "table table-hover" style="width:600px">
+        <table className = "table table-hover" style={{width:'600px'}}>
           <caption>General Settings</caption>
           <tr>
             <th>Name</th>
