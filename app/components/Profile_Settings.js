@@ -1,7 +1,7 @@
 import React from 'react';
 import Navbar from './navbar';
 //import Settings_Table from './Settings_Table';
-//import Profile_Options from './Profile_Options';
+import Profile_Options from './Profile_Options';
 
 export default class Profile_Settings extends React.Component {
   constructor(props) {

@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default class Profile_Options extends React.Components {
+export default class Profile_Options extends React.Component {
   constructor(props) {
     super(props);
   }

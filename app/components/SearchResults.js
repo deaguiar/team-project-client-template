@@ -10,10 +10,16 @@ export default class SearchResults extends React.Component
     super(props);
   }
 
+  onCommentsClick(postID)
+  {
+    console.log(postID);
+  }
+
   render()
   {
     var query = this.props.location.query;
     var posts = getAllPostsWithText(query)
+
     if (posts.length > 0 && query != "")
     {
     return (
@@ -38,7 +44,7 @@ export default class SearchResults extends React.Component
                               </li>
                               <li className="pull-right">
                                 <a href="/profile.html" className="override-boostrap-hyperlink">{getUserData(post.user).fullName}</a>
-                                <br><text>{unixTimeToString(post.date)}</text></br>
+                                <br></br><text>{unixTimeToString(post.date)}</text>
                               </li>
                               <li role="presentation" className="active">
                                 <div className="controls text-wrap">
@@ -64,8 +70,8 @@ export default class SearchResults extends React.Component
 
                             <ul className="nav nav-pills pull-right post-options">
                               <li role="presentation" className="active">
-                                <a href="#"><span className="glyphicon glyphicon-pencil">
-                                </span> <strong>View Comments</strong></a>
+                                <button onClick={() => this.onCommentsClick(post.postID)}><span className="glyphicon glyphicon-pencil">
+                                </span> <strong>View Comments</strong></button>
                               </li>
                               <li role="presentation" className="active">
                                 <a href="#"><span className="glyphicon glyphicon-triangle-right">
@@ -77,8 +83,8 @@ export default class SearchResults extends React.Component
                       </div>
                     </div>
                   )
-                }
-            )}
+                }, this)
+              }
           </div>
           </div>
 
