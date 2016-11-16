@@ -10,24 +10,23 @@ export default class SearchResults extends React.Component
     super(props);
   }
 
-
   render()
   {
     var query = this.props.location.query;
-
+    var posts = getAllPostsWithText(query)
+    if (posts.length > 0 && query != "")
+    {
     return (
     <div>
           <Navbar/>
+
           <div className="container" style={{paddingTop: 70 + 'px'}}>
 
           <div className="col-md-11 col-centered">
             <div>
-              {getAllPostsWithText(query).map(function(post)
+
+              {posts.map(function(post)
                 {
-                  console.log(post);
-                  console.log(post.lat);
-                  console.log(post.long);
-                  console.log(this);
                   return (
                     <div className="panel panel-default panel-colors">
                       <div className="panel-body">
@@ -94,5 +93,53 @@ export default class SearchResults extends React.Component
 
     </div>
     )
+  }
+  else
+  {
+    return (
+      <div>
+            <Navbar/>
+
+            <div className="container" style={{paddingTop: 70 + 'px'}}>
+
+            <div className="col-md-11 col-centered">
+              <div>
+                <div className="panel panel-default panel-colors">
+                  <div className="panel-body">
+                    <div className="row">
+                      <div className="col-md-10 col-centered">
+                        <ul className="nav nav-pills">
+                          <li role="presentation" className="active">
+                            <div className="controls text-wrap">
+                              <p className="form-control-static post-text">
+                                <div>There are no results for "{query}"</div>
+                              </p>
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div className="row">
+                      <div className="col-md-10">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+            </div>
+            </div>
+
+            <div className="row">
+              <div className="col-md-10">
+                <ul className="nav nav-pills pull-left results-footer">
+                </ul>
+              </div>
+            </div>
+
+            </div>
+
+      </div>
+    )
+  }
   }
 }

@@ -47,9 +47,10 @@ export default class Navbar extends React.Component
             <span className="glyphicon glyphicon-fire" style={{color: "white"}, {top: 2 + 'px'}, {top: 2 + 'px'}, {paddingRight: 5 + 'px'}}></span>Hot
           </a>
 
-          <Link to="/messages"><a className="navbar-brand handIcon" style={{color: "white"}}>
+
+            <Link to="/messages" className="navbar-brand handIcon" style={{color: "white"}}>
             <span className="glyphicon glyphicon-envelope" style={{color: "white"}, {top: 2 + 'px'}, {top: 2 + 'px'}, {paddingRight: 5 + 'px'}}></span>Messages
-          </a></Link>
+            </Link>
         </div>
 
         <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
