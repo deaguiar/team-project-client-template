@@ -47,7 +47,7 @@ export default class Navbar extends React.Component
             <span className="glyphicon glyphicon-fire" style={{color: "white"}, {top: 2 + 'px'}, {top: 2 + 'px'}, {paddingRight: 5 + 'px'}}></span>Hot
           </a>
 
-          <Link to="/messages"><a className="navbar-brand messageLink" style={{color: "white"}}>
+          <Link to="/messages"><a className="navbar-brand handIcon" style={{color: "white"}}>
             <span className="glyphicon glyphicon-envelope" style={{color: "white"}, {top: 2 + 'px'}, {top: 2 + 'px'}, {paddingRight: 5 + 'px'}}></span>Messages
           </a></Link>
         </div>
