@@ -2,25 +2,39 @@ import React from 'react';
 import {getAllPostsWithText, getUserData} from '../server.js';
 import {unixTimeToString, createMapURL} from '../util.js'
 import Navbar from './navbar'
+import SearchResultsComments from './SearchResultsComments.js'
 
 export default class SearchResults extends React.Component
 {
   constructor(props)
   {
     super(props);
+    this.posts = getAllPostsWithText(this.props.location.query)
   }
 
   onCommentsClick(postID)
   {
-    console.log(postID);
+    for (var post in this.posts)
+    {
+      if (this.posts[post].postID == postID)
+      {
+        if (this.posts[post].showComments == false)
+        {
+          this.posts[post].showComments = true;
+        }
+        else
+        {
+          this.posts[post].showComments = false;
+        }
+      }
+    }
+    this.forceUpdate();
   }
 
   render()
   {
-    var query = this.props.location.query;
-    var posts = getAllPostsWithText(query)
 
-    if (posts.length > 0 && query != "")
+    if (this.posts.length > 0 && this.props.location.query != "")
     {
     return (
     <div>
@@ -31,7 +45,7 @@ export default class SearchResults extends React.Component
           <div className="col-md-11 col-centered">
             <div>
 
-              {posts.map(function(post)
+              {this.posts.map(function(post)
                 {
                   return (
                     <div className="panel panel-default panel-colors">
@@ -70,8 +84,8 @@ export default class SearchResults extends React.Component
 
                             <ul className="nav nav-pills pull-right post-options">
                               <li role="presentation" className="active">
-                                <button onClick={() => this.onCommentsClick(post.postID)}><span className="glyphicon glyphicon-pencil">
-                                </span> <strong>View Comments</strong></button>
+                                <a onClick={() => this.onCommentsClick(post.postID)}><span className="glyphicon glyphicon-pencil">
+                                </span> <strong>View Comments</strong></a>
                               </li>
                               <li role="presentation" className="active">
                                 <a href="#"><span className="glyphicon glyphicon-triangle-right">
@@ -81,6 +95,7 @@ export default class SearchResults extends React.Component
                           </div>
                         </div>
                       </div>
+                      {post.showComments ? <SearchResultsComments postID={post.postID} /> : null}
                     </div>
                   )
                 }, this)
@@ -118,7 +133,7 @@ export default class SearchResults extends React.Component
                           <li role="presentation" className="active">
                             <div className="controls text-wrap">
                               <p className="form-control-static post-text">
-                                <div>There are no results for "{query}"</div>
+                                <div>There are no results for "{this.props.location.query}"</div>
                               </p>
                             </div>
                           </li>

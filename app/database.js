@@ -61,6 +61,7 @@ var initialData =
     {
       "postID": 1,
       "user": 1,
+      "showComments": false,
       "date": 1451606400,
       "upvotes": 127,
       "downvotes": 6790,
@@ -73,6 +74,7 @@ var initialData =
     {
       "postID": 2,
       "user": 2,
+      "showComments": false,
       "date": 1478979886,
       "upvotes": 1023,
       "downvotes": 12,
@@ -85,6 +87,7 @@ var initialData =
 	{
       "postID": 3,
       "user": 2,
+      "showComments": false,
       "date": 1506353372,
       "upvotes": 4649,
       "downvotes": 3939,
@@ -97,6 +100,7 @@ var initialData =
 	{
       "postID": 4,
       "user": 2,
+      "showComments": false,
       "date": 1530000000,
       "upvotes": 1337,
       "downvotes": 42,
@@ -109,6 +113,7 @@ var initialData =
 	{
       "postID": 5,
       "user": 2,
+      "showComments": false,
       "date": 1560000000,
       "upvotes": 9001,
       "downvotes": 402,
