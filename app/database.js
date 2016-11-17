@@ -46,6 +46,13 @@ var initialData =
                 }
             ]
           }
+      ],
+      "settings":[
+        {
+          "userName": "Orange",
+          "email": "tm_orange@something.com",
+          "city": "Amherst"
+        }
       ]
     }
   },
