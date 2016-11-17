@@ -64,12 +64,12 @@ export default class Navbar extends React.Component
 
           <div className="btn-toolbar pull-right" role="toolbar">
 
-            <div className="btn-group" role="group">
-
-              <button type="button" className="btn btn-default navbar-btn" href = "profile.html">
-              <span className="glyphicon glyphicon-user"></span>
-                Profile
-              </button>
+			<div className="btn-group" role="group" href = "profile.html">
+              <Link to="profile/">
+                <button type="button" className="btn btn-default navbar-btn">
+                  <span className="glyphicon glyphicon-user"></span>
+                  profile
+              </button></Link>
             </div>
 
             <div className="btn-group" role="group" href = "profile_settings.html">
