@@ -1,4 +1,4 @@
-.activeConvo {
+.activeConvo, .conversation:focus {
     background-color: lightblue;
     border: none;
 }
@@ -9,6 +9,17 @@
 
 .youChatter {
 
+}
+
+.conversation {
+    padding-top: 0px;
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+}
+
+.conversation:hover {
+    background-color: lightgray;
 }
 
 .glyphicon-envelope {

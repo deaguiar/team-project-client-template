@@ -1,6 +1,7 @@
 import React from 'react';
 import {getUserData} from '../server.js';
-import {unixTimeToString} from '../util.js'
+import {unixTimeToString} from '../util.js';
+import {Link} from 'react-router';
 
 export default class Messages extends React.Component {
     constructor(props) {
@@ -19,11 +20,12 @@ export default class Messages extends React.Component {
                     <img src={user.pic} width="40" height="40"/>
                 </div>
                 <div className="media-body">
-                    {user.fullName}
+                    <Link to={"/profile/" + user.id}>
+                        {user.fullName}</Link>
                     <br />
                     {this.state.message}
                     <br />
-                    {unixTimeToString(this.state.timestamp)}
+                    <sub>{unixTimeToString(this.state.timestamp)}</sub>
                 </div>
                 <hr />
             </div>

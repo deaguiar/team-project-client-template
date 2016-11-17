@@ -45,6 +45,21 @@ var initialData =
                   "timestamp": 2354245
                 }
             ]
+          },{
+              "chatID": 1,//id of user in the chat
+              "read": true,
+              "messages": [
+                  {
+                      "from": 1,
+                      "message": "Why won't my messages save!!",
+                      "timestamp": 34564567
+                  },
+                  {
+                      "from": 3,
+                      "message": "Because you are doing it wrong...",
+                      "timestamp": 35476458
+                  }
+              ]
           }
       ],
       "settings":[

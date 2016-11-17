@@ -1,8 +1,9 @@
 import React from 'react';
 import Navbar from './navbar.js';
-import {getUserData, messageUser} from '../server.js';
+import {getUserData, messageUser, readMessage} from '../server.js';
 import Conversation from './conversation.js';
-import Messages from './messages.js'
+import {Link} from 'react-router';
+import Messages from './messages.js';
 
 export default class MessageFrame extends React.Component {
     constructor(props) {
@@ -27,6 +28,19 @@ export default class MessageFrame extends React.Component {
         return chatId == this.state.active;
     }
 
+    handleConvoChange(event) {
+        if(this.state.active == event)
+            return;
+        readMessage(3, event, (cb) => {
+            cb.active = event;
+            this.setState(cb);
+        });
+    }
+
+    isRead(id) {
+        return this.state.chats[id].read;
+    }
+
     handleMessageEvent(event) {
         event.preventDefault();
         if(!this.hasActiveChat())
@@ -35,9 +49,13 @@ export default class MessageFrame extends React.Component {
             var text = this.state.value.trim();
             var callback = (updatedMessage) => {
                 this.setState(updatedMessage);
+                updatedMessage.chats[this.state.active].messages.map((h) => {
+                    console.log(h.message);
+                });
             }
             messageUser(this.state.id, this.state.active, text, callback); //only will update ourselves for now!
             //messageUser(this.state.chats[this.state.active].chatID, text, callback);
+            this.setState({value: ""});
         }
     }
 
@@ -66,7 +84,9 @@ export default class MessageFrame extends React.Component {
                                   <div className="nav nav-pills message-list">
                                           {this.state.chats.map( (map, i) => {
                                               return (
-                                                  <Conversation key={i} active = {this.isChatActive(i)} data={map} />
+                                                  <Conversation key={map.chatID} _id={i}
+                                                                isActive={(e) => this.isChatActive(e)} data={map}
+                                                                onClick={(e) => this.handleConvoChange(e)} />
                                               );
                                           })}
                                   </div>
@@ -76,11 +96,9 @@ export default class MessageFrame extends React.Component {
                   <div className="col-md-9">
                       <div className="panel">
                           <div className="panel-heading">
-                              {chatName}
+                              <Link to={"/profile/" + this.state.chats[this.state.active].chatID}>
+                                  {chatName}</Link>
                               <div className="btn-group pull-right" role="group">
-                                  <button type="button" className="btn btn-default new-message">
-                                      <span className="glyphicon glyphicon-plus">New Message</span>
-                                  </button>
                                   <button type="button" className="btn btn-default new-message">
                                       <span className="glyphicon glyphicon-road">Last Location</span>
                                   </button>
@@ -89,7 +107,7 @@ export default class MessageFrame extends React.Component {
                                   <div className="media-list">
                                       {this.state.chats[this.state.active].messages.map( (map, i) => {
                                           return (
-                                              <Messages key={i} parentId = {this.state.chats[this.state.active].chatID} data={map} />
+                                              <Messages key={i + (this.state.active * 1000)} parentId={this.state.chats[this.state.active].chatID} data={map} />
                                           );
                                       })}
                                   </div>
