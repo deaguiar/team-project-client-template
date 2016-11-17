@@ -19,18 +19,17 @@ export default class Navbar extends React.Component
     e.target.formAction = "#/search/" + this.searchText;
   }
 
+
+
   handleSubmit(event, text)
   {
       event.preventDefault();
-      var home = this._reactInternalInstance._context.router.createLocation('/');
-      var loc = this._reactInternalInstance._context.router.createLocation('/search/' + text);
+      var loc = this._reactInternalInstance._context.router.createLocation('#/search/' + text);
       loc.query = text;
-      loc.search = text;
-      console.log(this._reactInternalInstance._context.router);
-      console.log(browserHistory);
-      browserHistory.push(loc);
-      console.log(loc);
-      this._reactInternalInstance._context.router.transitionTo(loc);
+      loc.search = "";
+      window.location = '/#/search/' + text;
+      window.location.reload();
+      this.forceUpdate();
   }
 
 

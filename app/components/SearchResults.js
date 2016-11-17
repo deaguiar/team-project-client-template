@@ -9,7 +9,9 @@ export default class SearchResults extends React.Component
   constructor(props)
   {
     super(props);
-    this.posts = getAllPostsWithText(this.props.location.query)
+
+    this.query = this.props.params.query;
+    this.posts = getAllPostsWithText(this.query);
   }
 
   onCommentsClick(postID)
@@ -34,7 +36,7 @@ export default class SearchResults extends React.Component
   render()
   {
 
-    if (this.posts.length > 0 && this.props.location.query != "")
+    if (this.posts.length > 0 && this.query != "")
     {
     return (
     <div>
@@ -133,7 +135,7 @@ export default class SearchResults extends React.Component
                           <li role="presentation" className="active">
                             <div className="controls text-wrap">
                               <p className="form-control-static post-text">
-                                <div>There are no results for "{this.props.location.query}"</div>
+                                <div>There are no results for "{this.query}"</div>
                               </p>
                             </div>
                           </li>
