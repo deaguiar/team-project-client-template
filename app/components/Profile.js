@@ -13,7 +13,8 @@ export default class Profile extends React.Component
   {
     var query = this.props.location.query;
     var posts = getAllPostsWithText(query)
-    if (posts.length > 0 && query != "")
+	var user = posts.user
+    if (posts.length > 0 && query != "" && user == 2)
     {
     return (
     <div>

@@ -2,7 +2,6 @@ import React from 'react';
 import {getAllPostsWithText, getUserData} from '../server.js';
 import {unixTimeToString, createMapURL} from '../util.js'
 import Navbar from './navbar'
-import SearchResultsComments from './SearchResultsComments.js'
 
 export default class SearchResults extends React.Component
 {
