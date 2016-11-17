@@ -53,3 +53,25 @@ export function getAllPostsWithText(text)
 
   return resultsList;
 }
+
+export function getAllCommentsForAPost(postID)
+{
+ var postData = readDocument('posts', 0);
+ for (var i = 1; i <= postData.count; i++)
+ {
+   var result = readDocument('posts', i);
+   if (result.postID == postID)
+   {
+     var resultsList = [];
+     var comments = readDocument('comments', 0);
+     for(var count = 1; count <= comments.count; count++)
+     {
+       var result2 = readDocument('comments', count);
+       if (result.commentsIDList.indexOf(count) >= 0)
+         resultsList.push(result2);
+     }
+     return resultsList;
+   }
+ }
+ return null;
+}
