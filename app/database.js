@@ -80,7 +80,7 @@ var initialData =
     "2":
     {
       "postID": 2,
-      "user": 2,
+      "user": 3,
       "showComments": false,
       "date": 1478979886,
       "upvotes": 1023,
