@@ -1,135 +1,74 @@
 import React from 'react';
 import Navbar from './navbar';
-//import {getUserData} from '../server.js';
-//import {unixTimeToString} from '../util.js'
+import {getUserData, getAllPostsWithText} from '../server.js';
+import {unixTimeToString} from '../util.js';
+import SearchResultsComments from './SearchResultsComments'
 
 export default class Hot extends React.Component {
     constructor(props) {
         super(props);
+        this.state = props.data;
       }
       render() {
+        this.query = 'h'
+        this.posts = getAllPostsWithText(this.query);
         return (
           <div>
-          <Navbar />
-          <div classNameName="container">
-              <div className="row">
-                  <div className="row col-md-12">
-                      <div className="panel">
-                          <div className="panel-heading">
-                              <div className="input-group">
-                                  <input type="text" className="form-control" placeholder="Search Top Posts" />
-                                  <span className="input-group-btn">
-                                  <button type="submit" className="btn btn-default">
-                                      <span className="glyphicon glyphicon-search"></span>
-                                  </button></span>
-                              </div>
-                              <div className="btn-group pull-right" role="group">
-                                <div className="dropdown">
-                                  <button className="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Filter By: <span className="caret"></span></button>
-                                    <ul className="dropdown-menu" role="menu" aria-labelledby="menu1">
-                                      <li role="presentation"><a role="menuitem" href="#">All Time</a></li>
-                                      <li role="presentation" className="divider"></li>
-                                      <li role="presentation"><a role="menuitem" href="#">Location</a></li>
-                                      <li role="presentation"><a role="menuitem" href="#">Groups</a></li>
-                                      <li role="presentation"><a role="menuitem" href="#">Post Date</a></li>
-                                    </ul>
+            <Navbar/>
+              <div className="container">
+                {this.posts.map(function(post)
+                  {
+                    return (
+                      <div className="panel panel-default panel-colors">
+                        <div className="panel-body">
+                          <div className="row">
+                            <div className="col-md-10 col-centered">
+                              <ul className="nav nav-pills">
+                                <li className="pull-right">
+                                  <a href="/profile.html" className="override-boostrap-hyperlink">{getUserData(post.user).fullName}</a>
+                                  <br></br><text>{unixTimeToString(post.date)}</text>
+                                </li>
+                                <li role="presentation" className="active">
+                                  <div className="controls text-wrap">
+                                    <p className="form-control-static post-text">
+                                      {post.postText}
+                                    </p>
                                   </div>
-                              </div>
-                          </div>
-                          <br />
-                          <hr />
-                              <ul className="media-list">
-                                  <li className="media">
-                                      <div className="pull-left incoming-message">
-                                          <img src="img/BibleThump.png" width="40" height="40" />
-                                          Are you in ISB? As in the Integrated Learning Center?
-                                          <sub><br className="pull-left" />1 year ago</sub>
-                                          <div className="col-md-12">
-                                          <div className="btn-group top-posts-votes" role="group">
-                                          <button type="button" className="btn btn-xs white">
-                                          <span className="glyphicon glyphicon-menu-up"></span>44
-                                          </button>
-                                          <button type="button" className="btn btn-xs white">
-                                          <span className="glyphicon glyphicon-menu-down"></span>44
-                                           </button>
-                                            </div>
-                                          </div>
-                                      </div>
-                                  </li>
-                                  <li className="media">
-                                      <div className="pull-left incoming-message">
-                                          <img src="img/BibleThump.png" width="40" height="40" />Ill take the escalator
-                                          <sub><br className="pull-left" />4 months ago</sub>
-                                          <div className="col-md-12">
-                                          <div className="btn-group top-posts-votes" role="group">
-                                          <button type="button" className="btn btn-xs white">
-                                          <span className="glyphicon glyphicon-menu-up"></span>44
-                                          </button>
-                                          <button type="button" className="btn btn-xs white">
-                                          <span className="glyphicon glyphicon-menu-down"></span>44
-                                           </button>
-                                            </div>
-                                          </div>
-                                      </div>
-                                  </li>
-                                  <li className="media">
-                                      <div className="pull-left incoming-message">
-                                          <img src="img/BibleThump.png" width="40" height="40" /> Ill take the escalator!
-                                          <sub><br className="pull-left" />4 months ago</sub>
-
-                                          <div className="col-md-12">
-                                          <div className="btn-group top-posts-votes" role="group">
-                                          <button type="button" className="btn btn-xs white">
-                                          <span className="glyphicon glyphicon-menu-up"></span>44
-                                          </button>
-                                          <button type="button" className="btn btn-xs white">
-                                          <span className="glyphicon glyphicon-menu-down"></span>44
-                                           </button>
-                                            </div>
-                                          </div>
-                                      </div>
-                                  </li>
-                                  <li className="media">
-                                      <div className="pull-left incoming-message">
-                                          <img src="img/BibleThump.png" width="40" height="40" /> Ill take the escalator!
-                                          <sub><br className="pull-left" />4 months ago</sub>
-                                          <div className="col-md-12">
-                                          <div className="btn-group top-posts-votes" role="group">
-                                          <button type="button" className="btn btn-xs white">
-                                          <span className="glyphicon glyphicon-menu-up"></span>44
-                                          </button>
-                                          <button type="button" className="btn btn-xs white">
-                                          <span className="glyphicon glyphicon-menu-down"></span>44
-                                           </button>
-                                            </div>
-                                          </div>
-                                      </div>
-                                  </li>
-                                  <li className="media">
-                                      <div className="pull-left incoming-message">
-                                          <img src="img/BibleThump.png" width="40" height="40" /> Ill take the escalator!
-                                          <sub><br className="pull-left" />4 months ago</sub>
-
-                                          <div className="col-md-12">
-                                          <div className="btn-group top-posts-votes" role="group">
-                                          <button type="button" className="btn btn-xs white">
-                                          <span className="glyphicon glyphicon-menu-up"></span>44
-                                          </button>
-                                          <button type="button" className="btn btn-xs white">
-                                          <span className="glyphicon glyphicon-menu-down"></span>44
-                                           </button>
-                                            </div>
-                                          </div>
-                                      </div>
-                                  </li>
+                                </li>
                               </ul>
-                          <div className="panel-footer">
-
+                            </div>
                           </div>
+                          <div className="row">
+                            <div className="col-md-10">
+
+                              <ul className="nav nav-pills pull-left post-options">
+                                <li className="col-centered">
+                                  <span className="glyphicon glyphicon-menu-up upvote">{post.upvotes}</span>
+                                </li>
+                                <li className="col-centered">
+                                  <span className="glyphicon glyphicon-menu-down downvote">{post.downvotes}</span>
+                                </li>
+                              </ul>
+
+                              <ul className="nav nav-pills pull-right post-options">
+                                <li role="presentation" className="active">
+                                  <a onClick={() => this.onCommentsClick(post.postID)}><span className="glyphicon glyphicon-pencil">
+                                  </span> <strong>View Comments</strong></a>
+                                </li>
+                                <li role="presentation" className="active">
+                                  <a href="#"><span className="glyphicon glyphicon-triangle-right">
+                                  </span> <strong>View Full Post</strong></a>
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                        {post.showComments ? <SearchResultsComments postID={post.postID} /> : null}
                       </div>
-                  </div>
-              </div>
-          </div>
+                    )
+                  }, this)
+                }
+            </div>
         </div>
         )
       }
