@@ -1,5 +1,5 @@
 import React from 'react';
-import { Router, Link } from 'react-router'
+import { Router, Link, browserHistory } from 'react-router'
 export default class Navbar extends React.Component
 {
   constructor(props)
@@ -22,8 +22,14 @@ export default class Navbar extends React.Component
   handleSubmit(event, text)
   {
       event.preventDefault();
-      var loc = this._reactInternalInstance._context.router.createLocation('search/');
+      var home = this._reactInternalInstance._context.router.createLocation('/');
+      var loc = this._reactInternalInstance._context.router.createLocation('/search/' + text);
       loc.query = text;
+      loc.search = text;
+      console.log(this._reactInternalInstance._context.router);
+      console.log(browserHistory);
+      browserHistory.push(loc);
+      console.log(loc);
       this._reactInternalInstance._context.router.transitionTo(loc);
   }
 

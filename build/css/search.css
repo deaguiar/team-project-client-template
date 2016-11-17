@@ -12,6 +12,10 @@ body {
   margin: 0 auto;
 }
 
+.forceWidth {
+  width: 100% !important;
+}
+
 .text-wrap {
   width: auto;
   display: block; /* or inline-block */
