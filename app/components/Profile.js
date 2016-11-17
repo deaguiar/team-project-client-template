@@ -99,6 +99,45 @@ export default class Profile extends React.Component
     return (
       <div>
             <Navbar/>
+			<div class="col-md-3">
+			<div class="row">
+				<div class="col-md-12">
+					<img src="img/Kappa.png" width="75%">
+				</div>
+			</div>
+			<ul class="nav nav-pills nav-stacked">
+				<li role="presentation">
+					<a href="private_message.html">
+						<span class="glyphicon glyphicon-triangle-right"></span>
+						Birthday: XX/XX/XXXX
+					</a>
+				</li>
+				<li role="presentation">
+					<a href="private_message.html">
+						<span class="glyphicon glyphicon-triangle-right"></span>
+						Date Joined: YY/YY/YYYY
+					</a>
+				</li>
+				<li role="presentation">
+					<a href="search_results.html">
+						<span class="glyphicon glyphicon-triangle-right"></span>
+						Location: ??????, ?????
+					</a>
+				</li>
+				<li role="presentation">
+					<a href="#">
+						<span class="glyphicon glyphicon-triangle-right"></span>
+						Followers: ??????
+					</a>
+				</li>
+				<li role="presentation">
+					<a href="#">
+						<span class="glyphicon glyphicon-triangle-right"></span>
+						Followed: ??????
+					</a>
+				</li>
+			</ul>
+		</div>
 
             <div className="container" style={{paddingTop: 70 + 'px'}}>
 
@@ -125,19 +164,15 @@ export default class Profile extends React.Component
                     </div>
                   </div>
                 </div>
-
+              </div>
             </div>
-            </div>
-
             <div className="row">
               <div className="col-md-10">
                 <ul className="nav nav-pills pull-left results-footer">
                 </ul>
               </div>
             </div>
-
-            </div>
-
+          </div>
       </div>
     )
   }
