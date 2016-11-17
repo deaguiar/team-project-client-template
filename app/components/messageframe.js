@@ -49,9 +49,6 @@ export default class MessageFrame extends React.Component {
             var text = this.state.value.trim();
             var callback = (updatedMessage) => {
                 this.setState(updatedMessage);
-                updatedMessage.chats[this.state.active].messages.map((h) => {
-                    console.log(h.message);
-                });
             }
             messageUser(this.state.id, this.state.active, text, callback); //only will update ourselves for now!
             //messageUser(this.state.chats[this.state.active].chatID, text, callback);
@@ -81,7 +78,7 @@ export default class MessageFrame extends React.Component {
                               </ul>
                           </div>
                           <div className="panel-body" style={{marginBottom: 220}}>
-                                  <div className="nav nav-pills message-list">
+                                  <div className="media-list nav nav-pills message-list">
                                           {this.state.chats.map( (map, i) => {
                                               return (
                                                   <Conversation key={map.chatID} _id={i}

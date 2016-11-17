@@ -11,15 +11,31 @@
 
 }
 
+.prevMessage {
+    font-size: x-small;
+    padding-left: 5px;
+}
+
+.badge {
+    background-color: red;
+    color: white;
+    border-radius: 3px;
+    padding-left: 4px;
+    padding-right: 4px;
+    border: 1px solid black;
+}
+
 .conversation {
-    padding-top: 0px;
-    margin-bottom: 0px;
-    padding-bottom: 0px;
-    margin-bottom: 0px;
+    border: thin;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .conversation:hover {
+    border: thin;
     background-color: lightgray;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .glyphicon-envelope {
