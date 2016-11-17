@@ -91,7 +91,7 @@ export default class MessageFrame extends React.Component {
                       </div>
                   </div>
                   <div className="col-md-9">
-                      <div className="panel">
+                      <div className="panel conv-panel">
                           <div className="panel-heading">
                               <Link to={"/profile/" + this.state.chats[this.state.active].chatID}>
                                   {chatName}</Link>
@@ -101,7 +101,7 @@ export default class MessageFrame extends React.Component {
                                   </button>
                               </div>
                               <hr />
-                                  <div className="media-list">
+                                  <div className="media-list message-panel">
                                       {this.state.chats[this.state.active].messages.map( (map, i) => {
                                           return (
                                               <Messages key={i + (this.state.active * 1000)} parentId={this.state.chats[this.state.active].chatID} data={map} />

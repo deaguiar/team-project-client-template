@@ -41,6 +41,18 @@
 .glyphicon-envelope {
     margin-bottom: -2px;
     padding-bottom: -2px;
+    right: -80px;
+}
+
+.glyphicon-pushpin {
+    margin-bottom: -2px;
+    padding-bottom: -2px;
+    right: -40px;
+    left: 60px;
+}
+
+.mes-header {
+
 }
 
 .local-bar {
@@ -61,14 +73,19 @@
 
 .local-user {
     padding: 0px;
-    margin-bottom: 208px;
+    margin-bottom: 175px;
 }
 
 .message-button {
     padding-top: 10px;
 }
 
-.new-message {
-    margin-right: 20px;
-    margin-top: -5px;
+.conv-panel {
+    padding: 0px;
+    margin-bottom: 180px;
+}
+
+.message-panel {
+    padding: 0px;
+    margin-bottom: 175px;
 }
