@@ -6,9 +6,6 @@ import Navbar from './navbar';
 export default class Hot extends React.Component {
     constructor(props) {
         super(props);
-        //Ready for the addition of multiple states
-        this.state = props.data;
-        this.state.chatter = props.parentID;
       }
       render() {
         return (
@@ -61,7 +58,7 @@ export default class Hot extends React.Component {
                                   </li>
                                   <li className="media">
                                       <div className="pull-left incoming-message">
-                                          <img src="img/BibleThump.png" width="40" height="40" />I'll take the escalator
+                                          <img src="img/BibleThump.png" width="40" height="40" />Ill take the escalator
                                           <sub><br className="pull-left" />4 months ago</sub>
                                           <div className="col-md-12">
                                           <div className="btn-group top-posts-votes" role="group">
@@ -77,7 +74,7 @@ export default class Hot extends React.Component {
                                   </li>
                                   <li className="media">
                                       <div className="pull-left incoming-message">
-                                          <img src="img/BibleThump.png" width="40" height="40" /> I'll take the escalator!
+                                          <img src="img/BibleThump.png" width="40" height="40" /> Ill take the escalator!
                                           <sub><br className="pull-left" />4 months ago</sub>
 
                                           <div className="col-md-12">
@@ -94,7 +91,7 @@ export default class Hot extends React.Component {
                                   </li>
                                   <li className="media">
                                       <div className="pull-left incoming-message">
-                                          <img src="img/BibleThump.png" width="40" height="40" /> I'll take the escalator!
+                                          <img src="img/BibleThump.png" width="40" height="40" /> Ill take the escalator!
                                           <sub><br className="pull-left" />4 months ago</sub>
                                           <div className="col-md-12">
                                           <div className="btn-group top-posts-votes" role="group">
@@ -110,7 +107,7 @@ export default class Hot extends React.Component {
                                   </li>
                                   <li className="media">
                                       <div className="pull-left incoming-message">
-                                          <img src="img/BibleThump.png" width="40" height="40" /> I'll take the escalator!
+                                          <img src="img/BibleThump.png" width="40" height="40" /> Ill take the escalator!
                                           <sub><br className="pull-left" />4 months ago</sub>
 
                                           <div className="col-md-12">

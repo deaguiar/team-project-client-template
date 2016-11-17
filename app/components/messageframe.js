@@ -100,7 +100,7 @@ export default class MessageFrame extends React.Component {
                                   {chatName}</Link>
                               <div className="btn-group pull-right" role="group">
                                   <button type="button" className="btn btn-default new-message">
-                                      <span className="glyphicon glyphicon-road">Last Location</span>
+                                      <span className="glyphicon glyphicon-road"> Last Location</span>
                                   </button>
                               </div>
                               <hr />
