@@ -1,5 +1,11 @@
 import React from 'react';
 import Navbar from './navbar'
+/* will add these next time and change the body
+import {getSettingsData} from '../server.js';
+import {getUserData} from '../server.js';
+import {Link} from 'react-router';
+*/
+
 export default class Index extends React.Component
 {
   constructor(props)
@@ -178,6 +184,5 @@ export default class Index extends React.Component
 
       </div>
       </div>
-    )
-  }
+    )  }
 }
