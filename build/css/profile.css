@@ -76,15 +76,18 @@ color: white;
  transparent; color: #22345c;
   border: none;
 }
+
 .navbar button:active, .navbar button:focus, .navbar button:active:focus {
 background-color: transparent;
 color: white;
 border: none;
 /* Removes halo and shadow on button when clicked. */ outline: none;
 box-shadow: none; }
+
 /* Search button style -- overrides the above two rules for the search
    button */
 .navbar form button,
+
 .navbar form button:hover, .navbar form button:focus, .navbar form button:active, .navbar form button:active:focus {
 background-color: lightgrey;
 color: white;

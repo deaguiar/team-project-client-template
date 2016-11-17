@@ -29,13 +29,12 @@ export function readMessage(user, id, cb) {
 export function messageUser(user1ID, chatID, text, cb) {
     var user1 = readDocument("users", user1ID);
 
-    writeDocument("users", user1);
     user1.chats[chatID].messages.push( {
         "from": user1ID,
         "message": text,
         "timestamp": new Date().getTime()
     });
-    writeDocument("users", user1);
+    //writeDocument("users", user1);
     emulateServerReturn(user1, cb);
 }
 

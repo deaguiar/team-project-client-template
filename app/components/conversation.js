@@ -13,10 +13,15 @@ export default class Conversation extends React.Component {
         this.setState({read: true});
     }
 
+    getLastMessage() {
+        var length = this.state.messages.length;
+        return this.state.messages[length - 1].message;
+    }
+
     render() {
         var user = getUserData(this.state.chatID);
         var badge = <span className="badge pull-right">1</span>;
-        var active = "converation activeConvo";
+        var active = "conversation activeConvo";
         if(!this.props.isActive(this.state.id)) {
             active = "conversation";
         }
@@ -25,11 +30,14 @@ export default class Conversation extends React.Component {
         return(
             <div>
                 <li role="button" className={active} onClick={(e) => this.onClick(this.state.id)}>
-                    <img src={user.pic} width="40" height="40"/>
-                    {user.fullName}
-                    {badge}
+                    <div className="media-left media-top">
+                        <img src={user.pic} width="40" height="40"/></div>
+                    <div className="media-body"> {user.fullName}
+                        {badge}
+                        <br />
+                        <p className="prevMessage">{this.getLastMessage()}</p>
+                    </div>
                 </li>
-                <hr />
             </div>
         )
     }

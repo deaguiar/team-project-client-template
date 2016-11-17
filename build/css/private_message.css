@@ -11,20 +11,48 @@
 
 }
 
+.prevMessage {
+    font-size: x-small;
+    padding-left: 5px;
+}
+
+.badge {
+    background-color: red;
+    color: white;
+    border-radius: 3px;
+    padding-left: 4px;
+    padding-right: 4px;
+    border: 1px solid black;
+}
+
 .conversation {
-    padding-top: 0px;
-    margin-bottom: 0px;
-    padding-bottom: 0px;
-    margin-bottom: 0px;
+    border: thin;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .conversation:hover {
+    border: thin;
     background-color: lightgray;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .glyphicon-envelope {
     margin-bottom: -2px;
     padding-bottom: -2px;
+    right: -80px;
+}
+
+.glyphicon-pushpin {
+    margin-bottom: -2px;
+    padding-bottom: -2px;
+    right: -40px;
+    left: 60px;
+}
+
+.mes-header {
+
 }
 
 .local-bar {
@@ -45,14 +73,19 @@
 
 .local-user {
     padding: 0px;
-    margin-bottom: 208px;
+    margin-bottom: 175px;
 }
 
 .message-button {
     padding-top: 10px;
 }
 
-.new-message {
-    margin-right: 20px;
-    margin-top: -5px;
+.conv-panel {
+    padding: 0px;
+    margin-bottom: 180px;
+}
+
+.message-panel {
+    padding: 0px;
+    margin-bottom: 175px;
 }
