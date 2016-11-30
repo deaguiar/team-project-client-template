@@ -8,7 +8,7 @@ import Messages from './messages.js';
 export default class MessageFrame extends React.Component {
     constructor(props) {
         super(props); //we need to be given the userID in the URL!
-        this.state = props.data;//should be passed to this by default
+        this.state = getUserData(3);//props.user//should be passed to this by default
         this.state.active = 0;//should be -1, but we will set to 0
     }
 
@@ -29,12 +29,16 @@ export default class MessageFrame extends React.Component {
     }
 
     handleConvoChange(event) {
-        if(this.state.active == event)
+        if (this.state.active == event)
             return;
-        readMessage(3, event, (cb) => {
-            cb.active = event;
-            this.setState(cb);
-        });
+        if (this.state.chats[event].read) {
+            this.setState({active: event});
+        } else {
+            readMessage(3, event, (cb) => {
+                cb.active = event;
+                this.setState(cb);
+            });
+        }
     }
 
     isRead(id) {

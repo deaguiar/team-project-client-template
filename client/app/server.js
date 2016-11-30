@@ -19,23 +19,20 @@ export function getUserData(userID)
 }
 
 export function readMessage(user, id, cb) {
-    var usr = readDocument('users', user);
-
-    usr.chats[id].read = true;
-    writeDocument('users', usr);
-    emulateServerReturn(usr, cb);
+    sendXHR('PUT', '/' + user + '/message/' + id + '/read',
+        undefined, (xhr) => {
+        cb(JSON.parse(xhr.responseText));
+    });
 }
 
 export function messageUser(user1ID, chatID, text, cb) {
-    var user1 = readDocument("users", user1ID);
-
-    user1.chats[chatID].messages.push( {
+    sendXHR('PUT', '/' + user1ID + '/message', {
         "from": user1ID,
-        "message": text,
-        "timestamp": new Date().getTime()
+        "chat": chatID,
+        "message": text
+    }, (xhr) => {
+        cb(JSON.parse(xhr.responseText));
     });
-    //writeDocument("users", user1);
-    emulateServerReturn(user1, cb);
 }
 
 export function getAllPostsWithText(text)

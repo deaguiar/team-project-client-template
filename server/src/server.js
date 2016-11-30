@@ -3,8 +3,10 @@ var express = require('express');
 var app = express();
 var db = require('./database.js'); //Database.js import
 var bodyParser = require('body-parser');
+var validate = require('express-jsonschema').validate;
 
 var port = 3000;
+var message_sch = require('./schemas/message.json');
 
 //Express
 app.use(bodyParser.text());
@@ -43,6 +45,68 @@ function checkAuth(req, res) {
 app.get("/user/:userid", function(req, res) {
     if (checkAuth(req, res)) {
         res.send(db.readDocument('users', parseInt(req.params.userid, 10)));
+    } else {
+        res.status(401).end();
+    }
+});
+
+function postMessage(fromId, chatid, message) {
+    var userInfo = db.readDocument('users', fromId);
+    var chat = userInfo.chats[chatid];
+
+    var message = {
+        "from": fromId,
+        "message": message,
+        "timestamp": new Date().getTime()
+    }
+    chat.messages.push(message);
+
+    var otherUser = db.readDocument('users', chat.chatID);
+    var otherChat = null;
+    for(var i = 0; i < otherUser.chats.length; i++) {
+        if(otherUser.chats[i].chatID == fromId) {
+            otherChat = otherUser.chats[i];
+            break;
+        }
+    }
+    if(otherChat === null) {
+        otherChat = {
+            "fromID": fromId,
+            "read": false,
+            "messages": []
+        };
+        otherChat.messages.push(message);
+        otherUser.chats.push(otherChat);
+    }
+    db.writeDocument('users', userInfo);
+    db.writeDocument('users', otherUser);
+    return userInfo; // we could return userInfo or the chat of the user.
+}
+
+/**
+ * Change status of a conversation to 'read'.
+ */
+app.put("/:userid/message/:chat/read", function(req, res) {
+    if(checkAuth(req, res)) {
+        var userId = parseInt(req.params.userid, 10);
+        var user = db.readDocument('users', userId);
+        user.chats[parseInt(req.params.chat, 10)].read = true;
+        db.writeDocument('users', user);
+        res.send(user);//we will send the whole thing incase there was a conversation update!
+    } else {
+        res.status(401).end();
+    }
+});
+
+/**
+ * Send a message.
+ *
+ */
+app.put("/:userid/message",
+    validate({ body: message_sch}), function(req, res) {
+    if(checkAuth(req, res)) {
+        var newConv = postMessage(req.body.from, req.body.chat, req.body.message);
+        res.send(newConv);
     } else {
         res.status(401).end();
     }

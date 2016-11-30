@@ -222,7 +222,7 @@ export function resetDatabase() {
   data = JSONClone(initialData);
 }
 
-var token = 'eyJpZCI6NH0='; //same token i used for workshop
+var token = 'eyJpZCI6M30='; //same token i used for workshop
 export function sendXHR(verb, resource, body, cb) {
     var xhr = new XMLHttpRequest();
     xhr.open(verb, resource);

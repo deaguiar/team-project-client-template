@@ -5,21 +5,21 @@ var initialData = {
             // This user has id "1".
             "1":
                 {
-                    "id": 1,
+                    "_id": 1,
                     "fullName": "Person 1",
                     "pic": "img/profile_img.jpg",
                     "chats":[]
                 },
             "2":
                 {
-                    "id": 2,
+                    "_id": 2,
                     "fullName": "Person 2",
                     "pic": "img/BibleThump.png",
                     "chats":[]
                 },
             "3":
                 {
-                    "id": 3,
+                    "_id": 3,
                     "fullName": "Tim Richards",
                     "pic": "img/kappa.png",
                     "chats":[
