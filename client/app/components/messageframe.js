@@ -7,8 +7,8 @@ import Messages from './messages.js';
 
 export default class MessageFrame extends React.Component {
     constructor(props) {
-        super(props);
-        this.state = getUserData(3);//Need to pass dynamic user ID to this!
+        super(props); //we need to be given the userID in the URL!
+        this.state = props.data;//should be passed to this by default
         this.state.active = 0;//should be -1, but we will set to 0
     }
 

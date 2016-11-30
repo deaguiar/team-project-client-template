@@ -1,4 +1,4 @@
-import {readDocument, writeDocument} from './database.js';
+import {readDocument, writeDocument, sendXHR} from './database.js';
 
 /**
  * Emulates how a REST call is *asynchronous* -- it calls your function back
@@ -10,9 +10,9 @@ function emulateServerReturn(data, cb) {
   }, 4);
 }
 
-
 export function getUserData(userID)
 {
+    //
   var userData = readDocument('users', userID);
   //emulateServerReturn(userData, cb);
   return userData;

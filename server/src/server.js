@@ -31,6 +31,23 @@ function getUserIdFromToken(authorizationLine) {
     }
 }
 
+/*
+ * Shorten this as it will be called anytime we send the userId.
+ */
+function checkAuth(req, res) {
+    var fromUser = getUserIdFromToken(req.get('Authorization'));
+    var useridNumber = parseInt(req.params.userid, 10);
+    return fromUser == useridNumber;
+}
+
+app.get("/user/:userid", function(req, res) {
+    if (checkAuth(req, res)) {
+        res.send(db.readDocument('users', parseInt(req.params.userid, 10)));
+    } else {
+        res.status(401).end();
+    }
+});
+
 // Starts the server on port 3000!
 app.listen(port, function () {
     console.log('Geopost listening on port: ' + port);
