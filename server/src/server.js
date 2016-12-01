@@ -149,6 +149,21 @@ app.put("/:userid/message",
     }
 });
 
+app.get("/search/:query", function(req, res) {
+      var postData = db.readDocument('posts', 0);
+      var resultsList = [];
+      for (var i = 1; i <= postData.count; i++)
+      {
+        var result = db.readDocument('posts', i);
+        if( result.postText.indexOf(req.params.query) >= 0)
+        {
+          resultsList.push(result);
+        }
+      }
+
+      res.send(resultsList);
+});
+
 // Starts the server on port 3000!
 app.listen(port, function () {
     console.log('Geopost listening on port: ' + port);

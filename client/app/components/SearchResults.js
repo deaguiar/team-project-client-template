@@ -11,7 +11,17 @@ export default class SearchResults extends React.Component
     super(props);
 
     this.query = this.props.params.query;
-    this.posts = getAllPostsWithText(this.query);
+    this.posts = [];
+  }
+
+  setPosts(data, t)
+  {
+    t.posts = data;
+    t.forceUpdate();
+  }
+  componentDidMount()
+  {
+      getAllPostsWithText(this.query, this.setPosts, this);
   }
 
   onCommentsClick(postID)
@@ -35,7 +45,6 @@ export default class SearchResults extends React.Component
 
   render()
   {
-
     if (this.posts.length > 0 && this.query != "")
     {
     return (
@@ -50,7 +59,7 @@ export default class SearchResults extends React.Component
               {this.posts.map(function(post)
                 {
                   return (
-                    <div className="panel panel-default panel-colors">
+                    <div key={post.postID} className="panel panel-default panel-colors">
                       <div className="panel-body">
                         <div className="row">
                           <div className="col-md-10 col-centered">
@@ -134,9 +143,9 @@ export default class SearchResults extends React.Component
                         <ul className="nav nav-pills">
                           <li role="presentation" className="active">
                             <div className="controls text-wrap">
-                              <p className="form-control-static post-text">
+                              <div className="form-control-static post-text">
                                 <div>There are no results for "{this.query}"</div>
-                              </p>
+                              </div>
                             </div>
                           </li>
                         </ul>

@@ -43,20 +43,12 @@ export function messageUser(user1ID, chatID, text, cb) {
     });
 }
 
-export function getAllPostsWithText(text)
+export function getAllPostsWithText(text, cb, t)
 {
-  var postData = readDocument('posts', 0);
-  var resultsList = [];
-  for (var i = 1; i <= postData.count; i++)
-  {
-    var result = readDocument('posts', i);
-    if( result.postText.indexOf(text) >= 0)
-    {
-      resultsList.push(result);
-    }
-  }
-
-  return resultsList;
+  sendXHR('GET', '/search/' + text, {
+  }, (xhr) => {
+      cb(JSON.parse(xhr.responseText), t);
+  });
 }
 
 export function getAllCommentsForAPost(postID)
