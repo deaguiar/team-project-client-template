@@ -68,7 +68,7 @@ export default class Navbar extends React.Component
               <Link to="profile/">
                 <button type="button" className="btn btn-default navbar-btn">
                   <span className="glyphicon glyphicon-user"></span>
-                  profile
+                  Profile
               </button></Link>
             </div>
 

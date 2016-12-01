@@ -17,7 +17,7 @@ export default class Messages extends React.Component {
         return(
             <div>
                 <div className="media-left media-top">
-                    <img src={user.pic} width="40" height="40"/>
+                  <img src={user.pic} width="40" height="40"/>
                 </div>
                 <div className="media-body">
                     <Link to={"/profile/" + user.id}>

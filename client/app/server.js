@@ -1,4 +1,5 @@
-import {readDocument, writeDocument} from './database.js';
+import {readDocument, writeDocument,addDocument} from './database.js';
+
 
 /**
  * Emulates how a REST call is *asynchronous* -- it calls your function back
@@ -74,4 +75,40 @@ export function getAllCommentsForAPost(postID)
    }
  }
  return null;
+}
+/**
+ * Adds a new comment to the database on the given feed item.
+ */
+ export function postComment(feedItemId, author, contents, cb) {
+     sendXHR('POST', '/feeditem/' + feedItemId + '/comment', {
+         userId: author,
+         contents: contents
+     }, (xhr) => {
+         cb(JSON.parse(xhr.responseText));
+     });
+ }
+export function postStatusUpdate(user, location, contents, cb) {
+
+var newStatusUpdate = {
+"likeCounter": [],
+"type": "statusUpdate",
+"contents": {
+"author": user,
+"contents": contents
+},
+// List of comments on the post
+"comments": []
+};
+// Add the status update to the database.
+// Returns the status update w/ an ID assigned.
+newStatusUpdate = addDocument('feedItems', newStatusUpdate);
+// Add the status update reference to the front of the
+// current user's feed.
+var userData = readDocument('users', user);
+var feedData = readDocument('feeds', userData.feed);
+feedData.contents.unshift(newStatusUpdate._id);
+// Update the feed object.
+writeDocument('feeds', feedData);
+// Return the newly-posted object.
+emulateServerReturn(newStatusUpdate, cb);
 }

@@ -38,6 +38,7 @@ var initialData =
                   "from": 2,
                   "message": "Hello!",
                   "timestamp": 2354245
+                  
                 },
                 {
                   "from": 3,
@@ -145,6 +146,9 @@ var initialData =
       "postText": "(ง •̀_•́)ง THIS IS OUR TOWN SCRUBs (ง •̀_•́)ง \n (ง •̀_•́)ง Yeah, beat it! (ง •̀_•́)ง."
     }
   },
+
+
+
   "comments":
   {
     "0":
@@ -222,10 +226,10 @@ export function resetDatabase() {
   data = JSONClone(initialData);
 }
 
-/**
+/*
  * Reset database button.
  */
- /*
+/*
 class ResetDatabase extends React.Component {
   render() {
     return (
@@ -236,10 +240,11 @@ class ResetDatabase extends React.Component {
       }}>Reset Mock DB</button>
     );
   }
-}*/
+}
 
-/*
 ReactDOM.render(
   <ResetDatabase />,
   document.getElementById('db-reset')
-);*/
+);
+
+*/
