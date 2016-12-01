@@ -1,5 +1,5 @@
-import {readDocument, writeDocument,addDocument} from './database.js';
 
+import {readDocument, writeDocument, sendXHR} from './database.js';
 
 /**
  * Emulates how a REST call is *asynchronous* -- it calls your function back
@@ -11,32 +11,36 @@ function emulateServerReturn(data, cb) {
   }, 4);
 }
 
-
 export function getUserData(userID)
 {
+    //
   var userData = readDocument('users', userID);
   //emulateServerReturn(userData, cb);
   return userData;
 }
 
-export function readMessage(user, id, cb) {
-    var usr = readDocument('users', user);
+export function getMessageList(user, cb) {
+    sendXHR('GET', '/' + user + '/messages',
+        undefined, (xhr) => {
+        cb(JSON.parse(xhr.responseText));
+    });
+}
 
-    usr.chats[id].read = true;
-    writeDocument('users', usr);
-    emulateServerReturn(usr, cb);
+export function readMessage(user, id, cb) {
+    sendXHR('PUT', '/' + user + '/message/' + id + '/read',
+        undefined, (xhr) => {
+        cb(JSON.parse(xhr.responseText));
+    });
 }
 
 export function messageUser(user1ID, chatID, text, cb) {
-    var user1 = readDocument("users", user1ID);
-
-    user1.chats[chatID].messages.push( {
+    sendXHR('PUT', '/' + user1ID + '/message', {
         "from": user1ID,
-        "message": text,
-        "timestamp": new Date().getTime()
+        "chat": chatID,
+        "message": text
+    }, (xhr) => {
+        cb(JSON.parse(xhr.responseText));
     });
-    //writeDocument("users", user1);
-    emulateServerReturn(user1, cb);
 }
 
 export function getAllPostsWithText(text)

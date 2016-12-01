@@ -1,15 +1,26 @@
 import React from 'react';
 import Navbar from './navbar.js';
-import {getUserData, messageUser, readMessage} from '../server.js';
+import {getUserData, messageUser, readMessage, getMessageList} from '../server.js';
 import Conversation from './conversation.js';
 import {Link} from 'react-router';
 import Messages from './messages.js';
 
 export default class MessageFrame extends React.Component {
     constructor(props) {
-        super(props);
-        this.state = getUserData(3);//Need to pass dynamic user ID to this!
-        this.state.active = 0;//should be -1, but we will set to 0
+        super(props); //we need to be given the userID in the URL!
+        this.state = {
+            active: -1,
+            chats: []
+        }
+    }
+    refresh() {
+        getMessageList(3, (data) => {
+           this.setState(data);
+        });
+    }
+
+    componentDidMount() {
+        this.refresh();
     }
 
     hasActiveChat() {
@@ -20,25 +31,51 @@ export default class MessageFrame extends React.Component {
         this.setState({ value: e.target.value });
     }
 
-    getNameOfChat() {
-        return getUserData(this.state.chats[this.state.active].chatID).fullName;
-    }
-
     isChatActive(chatId) {
         return chatId == this.state.active;
     }
 
     handleConvoChange(event) {
-        if(this.state.active == event)
+        if (this.state.active == event)
             return;
-        readMessage(3, event, (cb) => {
-            cb.active = event;
-            this.setState(cb);
-        });
+        if (this.state.chats[event].read) {
+            this.setState({active: event});
+        } else {
+            readMessage(3, event, (cb) => {
+                cb.active = event;
+                this.setState(cb);
+            });
+        }
     }
 
     isRead(id) {
         return this.state.chats[id].read;
+    }
+
+    isConvoActive() {
+        if(this.hasActiveChat()) {
+            return (
+                <div>
+                    <Link to={"/profile/" + this.state.chats[this.state.active].chatID._id}>
+                    {this.state.chats[this.state.active].chatName}</Link>
+                    <div className="btn-group pull-right" role="group">
+                        <button type="button" className="btn btn-default new-message">
+                            <span className="glyphicon glyphicon-road"> Last Location</span>
+                        </button>
+                    </div>
+                    <hr />
+                    <div className="media-list message-panel">
+                        {this.state.chats[this.state.active].messages.map( (map, i) => {
+                            return (
+                                <Messages key={i + (this.state.active * 1000)} parentId={this.state.chatOwner} data={map} />
+                            );
+                        })}
+                    </div>
+                </div>
+            );
+        } else {
+            return (<div>Click a conversation to view messages!<hr /></div>)
+        }
     }
 
     handleMessageEvent(event) {
@@ -50,7 +87,7 @@ export default class MessageFrame extends React.Component {
             var callback = (updatedMessage) => {
                 this.setState(updatedMessage);
             }
-            messageUser(this.state.id, this.state.active, text, callback); //only will update ourselves for now!
+            messageUser(this.state.chatOwner._id, this.state.active, text, callback); //only will update ourselves for now!
             //messageUser(this.state.chats[this.state.active].chatID, text, callback);
             this.setState({value: ""});
         }
@@ -59,7 +96,7 @@ export default class MessageFrame extends React.Component {
   render() {
         var chatName = 'Click a conversation to view messages!';
         if(this.hasActiveChat())
-            chatName = this.getNameOfChat();
+            chatName = this.state.chats[this.state.active].chatName;
     return (
       <div>
           <Navbar />
@@ -81,7 +118,7 @@ export default class MessageFrame extends React.Component {
                                   <div className="media-list nav nav-pills message-list">
                                           {this.state.chats.map( (map, i) => {
                                               return (
-                                                  <Conversation key={map.chatID} _id={i}
+                                                  <Conversation key={i} _id={i}
                                                                 isActive={(e) => this.isChatActive(e)} data={map}
                                                                 onClick={(e) => this.handleConvoChange(e)} />
                                               );
@@ -93,21 +130,7 @@ export default class MessageFrame extends React.Component {
                   <div className="col-md-9">
                       <div className="panel conv-panel">
                           <div className="panel-heading">
-                              <Link to={"/profile/" + this.state.chats[this.state.active].chatID}>
-                                  {chatName}</Link>
-                              <div className="btn-group pull-right" role="group">
-                                  <button type="button" className="btn btn-default new-message">
-                                      <span className="glyphicon glyphicon-road"> Last Location</span>
-                                  </button>
-                              </div>
-                              <hr />
-                                  <div className="media-list message-panel">
-                                      {this.state.chats[this.state.active].messages.map( (map, i) => {
-                                          return (
-                                              <Messages key={i + (this.state.active * 1000)} parentId={this.state.chats[this.state.active].chatID} data={map} />
-                                          );
-                                      })}
-                                  </div>
+                              {this.isConvoActive()}
                           </div>
                           <div className="panel-footer">
                               <div className="input-group">

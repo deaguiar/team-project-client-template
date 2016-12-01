@@ -19,7 +19,7 @@ export default class Conversation extends React.Component {
     }
 
     render() {
-        var user = getUserData(this.state.chatID);
+        var user = this.state.chatID;
         var badge = <span className="badge pull-right">1</span>;
         var active = "conversation activeConvo";
         if(!this.props.isActive(this.state.id)) {
