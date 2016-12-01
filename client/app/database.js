@@ -290,4 +290,3 @@ ReactDOM.render(
   <ResetDatabase />,
   document.getElementById('db-reset')
 );*/
-Contact GitHub API Training Shop Blog About
