@@ -1,5 +1,4 @@
 import React from 'react';
-import {getUserData} from '../server.js';
 import {unixTimeToString} from '../util.js';
 import {Link} from 'react-router';
 
@@ -10,17 +9,14 @@ export default class Messages extends React.Component {
         this.state.chatter = props.parentID;
     }
     render() {
-        var user = getUserData(this.state.from);
-        var chatUser = "otherChatter"
-        if(this.state.chatter != this.state.id)//means we are the one talking
-            chatUser = 'youChatter'
+        var user = this.state.from;
         return(
             <div>
                 <div className="media-left media-top">
                     <img src={user.pic} width="40" height="40"/>
                 </div>
                 <div className="media-body">
-                    <Link to={"/profile/" + user.id}>
+                    <Link to={"/profile/" + user._id}>
                         {user.fullName}</Link>
                     <br />
                     {this.state.message}

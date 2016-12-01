@@ -18,6 +18,13 @@ export function getUserData(userID)
   return userData;
 }
 
+export function getMessageList(user, cb) {
+    sendXHR('GET', '/' + user + '/messages',
+        undefined, (xhr) => {
+        cb(JSON.parse(xhr.responseText));
+    });
+}
+
 export function readMessage(user, id, cb) {
     sendXHR('PUT', '/' + user + '/message/' + id + '/read',
         undefined, (xhr) => {

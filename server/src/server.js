@@ -52,35 +52,43 @@ app.get("/user/:userid", function(req, res) {
 
 function postMessage(fromId, chatid, message) {
     var userInfo = db.readDocument('users', fromId);
-    var chat = userInfo.chats[chatid];
+    var chat = db.readDocument('messages', userInfo.chat);
 
     var message = {
         "from": fromId,
         "message": message,
         "timestamp": new Date().getTime()
     }
-    chat.messages.push(message);
 
-    var otherUser = db.readDocument('users', chat.chatID);
-    var otherChat = null;
-    for(var i = 0; i < otherUser.chats.length; i++) {
-        if(otherUser.chats[i].chatID == fromId) {
-            otherChat = otherUser.chats[i];
+    var chatWith = db.readDocument('users', chat.chats[chatid].chatID);
+    if(chatWith.chat === -1) {//no chat exists!
+        var newDoc = db.addDocument('messages', {
+            "chatOwner": chatWith._id,
+            "chats": []
+        });
+        chatWith.chat = newDoc._id;
+    }
+    var otherChat = db.readDocument('messages', chatWith.chat);//should check if document exists!
+    var index = otherChat.chats.length;
+    for(var i = 0; i < otherChat.chats.length; i++) {
+        if(fromId == otherChat.chats[i].chatID) {
+            otherChat.chats[i].read = false;
+            index = i;
             break;
         }
     }
-    if(otherChat === null) {
-        otherChat = {
-            "fromID": fromId,
+    if(index === otherChat.chats.length) {
+        otherChat.chats.push({
+            "chatID": fromId,//id of user in the chat
             "read": false,
             "messages": []
-        };
-        otherChat.messages.push(message);
-        otherUser.chats.push(otherChat);
+        });
     }
-    db.writeDocument('users', userInfo);
-    db.writeDocument('users', otherUser);
-    return userInfo; // we could return userInfo or the chat of the user.
+    otherChat.chats[index].messages.push(message);
+    chat.chats[chatid].messages.push(message);
+    db.writeDocument('messages', chat);
+    db.writeDocument('messages', otherChat);
+    return formatChat(chat); // we could return userInfo or the chat of the user.
 }
 
 /**
@@ -89,13 +97,41 @@ function postMessage(fromId, chatid, message) {
 app.put("/:userid/message/:chat/read", function(req, res) {
     if(checkAuth(req, res)) {
         var userId = parseInt(req.params.userid, 10);
-        var user = db.readDocument('users', userId);
+        var user = db.readDocument('messages', userId);
         user.chats[parseInt(req.params.chat, 10)].read = true;
-        db.writeDocument('users', user);
+        db.writeDocument('messages', user);
         res.send(user);//we will send the whole thing incase there was a conversation update!
     } else {
         res.status(401).end();
     }
+});
+
+function formatChat(chat) {
+    chat.chatOwner = db.readDocument('users', chat.chatOwner);
+    for(var i = 0; i < chat.chats.length; i++) {
+        chat.chats[i].chatID = db.readDocument('users', chat.chats[i].chatID);
+        for(var j = 0; j < chat.chats[i].messages.length; j++) {
+            chat.chats[i].messages[j].from = db.readDocument('users', chat.chats[i].messages[j].from);
+        }
+    }
+    return chat;
+}
+
+app.get("/:userid/messages", function(req, res) {
+   if(checkAuth(req, res)) {
+       var id = parseInt(req.params.userid, 10);
+       var user = db.readDocument('users', id);
+       if(user.chat === -1) {//no chat exists!
+           var newDoc = db.addDocument('messages', {
+               "chatOwner": id,
+               "chats": []
+           });
+           user.chat = newDoc._id;
+       }
+       res.send(formatChat(db.readDocument('messages', user.chat)));
+   }  else {
+       res.status(401).end();
+   }
 });
 
 /**

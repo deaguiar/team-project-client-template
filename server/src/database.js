@@ -8,53 +8,21 @@ var initialData = {
                     "_id": 1,
                     "fullName": "Person 1",
                     "pic": "img/profile_img.jpg",
-                    "chats":[]
+                    "chat": -1
                 },
             "2":
                 {
                     "_id": 2,
                     "fullName": "Person 2",
                     "pic": "img/BibleThump.png",
-                    "chats":[]
+                    "chat": -1
                 },
             "3":
                 {
                     "_id": 3,
                     "fullName": "Tim Richards",
                     "pic": "img/kappa.png",
-                    "chats":[
-                        {
-                            "chatID": 2,//id of user in the chat
-                            "read": false,
-                            "messages": [
-                                {
-                                    "from": 2,
-                                    "message": "Hello!",
-                                    "timestamp": 2354245
-                                },
-                                {
-                                    "from": 3,
-                                    "message": "Hi",
-                                    "timestamp": 2354245
-                                }
-                            ]
-                        },{
-                            "chatID": 1,//id of user in the chat
-                            "read": true,
-                            "messages": [
-                                {
-                                    "from": 1,
-                                    "message": "Why won't my messages save!!",
-                                    "timestamp": 34564567
-                                },
-                                {
-                                    "from": 3,
-                                    "message": "Because you are doing it wrong...",
-                                    "timestamp": 35476458
-                                }
-                            ]
-                        }
-                    ],
+                    "chat": 3,
                     "settings":[
                         {
                             "userName": "Orange",
@@ -153,6 +121,43 @@ var initialData = {
                 {
                     "user": 2,
                     "commentText": "It's just some meaningless filler text..."
+                }
+        },
+    "messages":
+        {
+            "3":
+                {
+                    "_id": 3,
+                    "chatOwner": 3,
+                    "chats": [
+                        {
+                            "chatID": 1,//id of user in the chat
+                            "chatName": "Person 1",
+                            "read": true,
+                            "messages": [
+                                {"from": 1,
+                                    "message": "Why won't my messages save!!",
+                                    "timestamp": 34564567
+                                },
+                                {"from": 3,
+                                    "message": "Because you are doing it wrong...",
+                                    "timestamp": 35476458
+                                }]
+                        },{
+                            "chatID": 2,//id of user in the chat
+                            "chatName": "Person 2",
+                            "read": false,
+                            "messages": [
+                                {"from": 2,
+                                    "message": "Why won't my messages save!!",
+                                    "timestamp": 34564567
+                                },
+                                {"from": 3,
+                                    "message": "Check it homie...",
+                                    "timestamp": 35476458
+                                }]
+                        },
+                    ]
                 }
         }
 };
