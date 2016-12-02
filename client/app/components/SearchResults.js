@@ -1,5 +1,5 @@
 import React from 'react';
-import {getAllPostsWithText} from '../server.js';
+import {getAllPostsWithText, getAllCommentsForAPost} from '../server.js';
 import {unixTimeToString, createMapURL} from '../util.js'
 import Navbar from './navbar'
 import SearchResultsComments from './SearchResultsComments'
@@ -12,13 +12,25 @@ export default class SearchResults extends React.Component
 
     this.query = this.props.params.query;
     this.posts = [];
-    this.userData = [];
+    this.comments = [];
+  }
+
+  setComments(data, t)
+  {
+    t.comments.push(data);
+    t.forceUpdate();
   }
 
   setPosts(data, t)
   {
     t.posts = data;
     t.forceUpdate();
+
+    // now for each post get the comments
+    for (var post in t.posts)
+    {
+      getAllCommentsForAPost(t.posts[post].postID, t.setComments, t);
+    }
   }
 
   componentDidMount()
@@ -49,6 +61,12 @@ export default class SearchResults extends React.Component
   {
     if (this.posts.length > 0 && this.query != "")
     {
+      var comments = this.comments;
+      this.posts.map(function(a,b){
+        a.comments = comments[b];
+        return a;
+      });
+
     return (
     <div>
           <Navbar/>
@@ -108,7 +126,7 @@ export default class SearchResults extends React.Component
                           </div>
                         </div>
                       </div>
-                      {post.showComments ? <SearchResultsComments postID={post.postID}/> : null}
+                      {post.showComments ? <SearchResultsComments postID={post.postID} comments={post.comments}/> : null}
                     </div>
                   )
                 }, this)

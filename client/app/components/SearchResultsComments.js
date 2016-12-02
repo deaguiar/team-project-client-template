@@ -1,23 +1,11 @@
 import React from 'react';
-import {getAllCommentsForAPost} from '../server.js';
 
 export default class SearchResultsComments extends React.Component
 {
   constructor(props)
   {
     super(props);
-    this.comments = [];
-  }
-
-  setComments(data, t)
-  {
-    t.posts = data;
-    //t.forceUpdate();
-  }
-
-  componentDidMount()
-  {
-    getAllCommentsForAPost(this.props.postID, this.setComments, this);
+    this.comments = this.props.comments;
   }
 
   render()
@@ -25,6 +13,9 @@ export default class SearchResultsComments extends React.Component
 
     if (this.comments.length > 0)
     {
+      //generate the id for each comment, basically does nothing except get rid of a warning
+      this.comments.map(function(a,b){ a.id = b; return a;});
+
       return (
         <div>
         <div style={{"borderStyle": "groove"}} />
@@ -33,7 +24,7 @@ export default class SearchResultsComments extends React.Component
               {this.comments.map(function(comment)
                 {
                   return (
-                    <div>
+                    <div key={comment.id}>
                       <div className="panel-body" style={{backgroundColor: "aliceBlue"}}>
                       <div className="col-md-10" style={{width: "100%"}}>
                         <ul className="nav nav-pills">

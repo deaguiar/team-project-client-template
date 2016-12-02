@@ -1,6 +1,6 @@
 import React from 'react';
 import Navbar from './navbar';
-import {getUserData, getTopXHotPosts} from '../server.js';
+import {getAllCommentsForAPost, getTopXHotPosts} from '../server.js';
 import {unixTimeToString} from '../util.js';
 import SearchResultsComments from './SearchResultsComments'
 
@@ -9,12 +9,24 @@ export default class Hot extends React.Component {
         super(props);
         this.state = props.data;
         this.posts = [];
+        this.comments = [];
+      }
+
+      setComments(data, t)
+      {
+        t.comments.push(data);
+        t.forceUpdate();
       }
 
       setPosts(data, t)
       {
         t.posts = data;
         t.forceUpdate();
+        // now for each post get the comments
+        for (var post in t.posts)
+        {
+          getAllCommentsForAPost(t.posts[post].postID, t.setComments, t);
+        }
       }
 
       componentDidMount()
@@ -42,6 +54,14 @@ export default class Hot extends React.Component {
       }
 
       render() {
+        if (this.posts.length > 0)
+        {
+        var comments = this.comments;
+        this.posts.map(function(a,b){
+          a.comments = comments[b];
+          return a;
+        });
+
         return (
           <div>
             <Navbar/>
@@ -49,7 +69,7 @@ export default class Hot extends React.Component {
                 {this.posts.map(function(post)
                   {
                     return (
-                      <div className="panel panel-default panel-colors">
+                      <div key={post.postID} className="panel panel-default panel-colors">
                         <div className="panel-body">
                           <div className="row">
                             <div className="col-md-10 col-centered">
@@ -93,7 +113,7 @@ export default class Hot extends React.Component {
                             </div>
                           </div>
                         </div>
-                        {post.showComments ? <SearchResultsComments postID={post.postID} /> : null}
+                        {post.showComments ? <SearchResultsComments postID={post.postID} comments={post.comments}/> : null}
                       </div>
                     )
                   }, this)
@@ -101,5 +121,54 @@ export default class Hot extends React.Component {
             </div>
         </div>
         )
+      }
+      else
+      {
+        return (
+          <div>
+                <Navbar/>
+
+                <div className="container" style={{paddingTop: 70 + 'px'}}>
+
+                <div className="col-md-11 col-centered">
+                  <div>
+                    <div className="panel panel-default panel-colors">
+                      <div className="panel-body">
+                        <div className="row">
+                          <div className="col-md-10 col-centered">
+                            <ul className="nav nav-pills">
+                              <li role="presentation" className="active">
+                                <div className="controls text-wrap">
+                                  <div className="form-control-static post-text">
+                                    <div>Unable to retreive hot posts</div>
+                                  </div>
+                                </div>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                        <div className="row">
+                          <div className="col-md-10">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                </div>
+                </div>
+
+                <div className="row">
+                  <div className="col-md-10">
+                    <ul className="nav nav-pills pull-left results-footer">
+                    </ul>
+                  </div>
+                </div>
+
+                </div>
+
+          </div>
+        )
+      }
+
       }
 }
