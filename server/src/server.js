@@ -149,6 +149,22 @@ app.put("/:userid/message",
     }
 });
 
+app.get("/:userid/posts", function(req, res) {
+   if(checkAuth(req, res)) {
+       var id = parseInt(req.params.userid, 10);
+       var user = db.readDocument('users', id);
+           if(user.post === -1) {
+              var newDoc = db.addDocument('posts', {
+               "poster": id,
+               "posts": []
+           });
+           user.post = newDoc._id;
+       }
+       res.send(formatChat(db.readDocument('post', user.post)));
+   }  else {
+       res.status(401).end();
+   }
+});
 app.get("/search/:query", function(req, res) {
       var postData = db.readDocument('posts', 0);
       var resultsList = [];
