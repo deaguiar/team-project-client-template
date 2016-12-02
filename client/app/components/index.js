@@ -85,7 +85,9 @@ export default class Index extends React.Component {
       <div className="feed-left feed-top">
       </div>
           <div className="feed-body">
-
+             {this.state.fullName} <hr /></div>
+                     <div className="feed-body">
+                          {this.state.text}
 
           <div/>
               <div className="feed-body">
