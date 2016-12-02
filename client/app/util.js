@@ -19,6 +19,8 @@ export function createMapURL(lat, long)
   res = res + lat + "," + long;
   res = res + " alt=\"Google Map of ";
   res = res + lat + "," + long;
+  // for multiple markers in the future we can loop over this
+  res = res + "&markers=size:mid%7Ccolor:0xff0000%7Clabel:1%7C" + lat + ",+" + long;
   return res;
 }
 /**

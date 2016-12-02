@@ -11,11 +11,11 @@ function emulateServerReturn(data, cb) {
   }, 4);
 }
 
-export function getUserData(userID, cb)
+export function getUserData(userID, cb, t)
 {
   sendXHR('GET', '/user/' + userID,
       undefined, (xhr) => {
-      cb(JSON.parse(xhr.responseText));
+      cb(JSON.parse(xhr.responseText), t);
   });
 }
 

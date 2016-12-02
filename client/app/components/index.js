@@ -8,8 +8,17 @@ import Post from './post.js';
 export default class Index extends React.Component {
     constructor(props) {
         super(props);
-        this.state = getUserData(3);
-        this.state.active = 0;
+        this.state = {};
+    }
+    componentDidMount()
+    {
+        this.setState({active: 0});
+        this.setState({userData: undefined});
+        getUserData(3, this.setUserData, this);
+    }
+    setUserData(data, t)
+    {
+      t.setState({userData: data});
     }
 
     hasActiveChat() {
@@ -20,6 +29,9 @@ export default class Index extends React.Component {
         this.setState({ value: e.target.value });
     }
 
+
+    // this function will no longer work since getUserData has changed
+    // idk who is using this
     getNameOfChat() {
         return getUserData(this.state.chats[this.state.active].chatID).fullName;
     }

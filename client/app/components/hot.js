@@ -1,7 +1,7 @@
 import React from 'react';
 import Navbar from './navbar';
 import {getAllCommentsForAPost, getTopXHotPosts} from '../server.js';
-import {unixTimeToString} from '../util.js';
+import {unixTimeToString, createMapURL} from '../util.js';
 import SearchResultsComments from './SearchResultsComments'
 
 export default class Hot extends React.Component {
@@ -74,6 +74,9 @@ export default class Hot extends React.Component {
                           <div className="row">
                             <div className="col-md-10 col-centered">
                               <ul className="nav nav-pills">
+                                <li role="presentation">
+                                  <img width="200" src={createMapURL(post.lat, post.long)}/>
+                                </li>
                                 <li className="pull-right">
                                   <a href="/profile.html" className="override-boostrap-hyperlink">{post.person.fullName}</a>
                                   <br></br><text>{unixTimeToString(post.date)}</text>
