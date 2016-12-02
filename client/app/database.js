@@ -28,6 +28,7 @@ var initialData = {
                     "_id": 3,
                     "fullName": "Tim Richards",
                     "pic": "img/kappa.png",
+                    "text": "this feed is still a work in progress",
                     "chat": 3,
                     "settings":[
                         {
