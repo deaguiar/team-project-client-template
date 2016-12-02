@@ -1,7 +1,7 @@
 import React from 'react';
 import {getUserData} from '../server.js';
 
-export default class Conversation extends React.Component {
+export default class FeedItems extends React.Component {
     constructor(props) {
         super(props);
         this.state = props.data;

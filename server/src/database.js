@@ -9,14 +9,17 @@ var initialData = {
                     "_id": 1,
                     "fullName": "Person 1",
                     "pic": "img/profile_img.jpg",
-                    "chat": -1
+                    "chat": -1,
+                    "post": -1
+
                 },
             "2":
                 {
                     "_id": 2,
                     "fullName": "Person 2",
                     "pic": "img/BibleThump.png",
-                    "chat": -1
+                    "chat": -1,
+                      "post": -1
                 },
             "3":
                 {
@@ -157,10 +160,47 @@ var initialData = {
                                     "message": "Check it homie...",
                                     "timestamp": 35476458
                                 }]
-                        },
+                        }
                     ]
                 }
-        }
+        },
+        "feed":
+            {
+                "3":
+                    {
+                        "_id": 3,
+                        "Owner": 3,
+                        "posts": [
+                            {
+                                "feedID": 1,//id of user in the chat
+                                "chatName": "Person 1",
+                                "read": true,
+                                "feed": [
+                                    {"from": 1,
+                                        "message": "my feeed"
+
+                                    },
+                                    {"from": 3,
+                                        "message": "Because you are doing it right..."
+
+                                    }]
+                            },{
+                                "feedID": 2,//id of user in the chat
+                                "chatName": "Person 2",
+                                "read": false,
+                                "feed": [
+                                    {"from": 2,
+                                        "message": "Why won't my messages save!!"
+
+                                    },
+                                    {"from": 3,
+                                        "message": "Check it homie..."
+
+                                    }]
+                            }
+                        ]
+                    }
+            }
 
 };
 

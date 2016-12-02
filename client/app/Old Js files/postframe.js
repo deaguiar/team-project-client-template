@@ -1,23 +1,15 @@
+
 import React from 'react';
 import Navbar from './navbar.js';
 import {getUserData, messageUser, readMessage} from '../server.js';
 import {Link} from 'react-router';
 import Post from './post.js';
 
-export default class Index extends React.Component {
+export default class PostFrame extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {};
-    }
-    componentDidMount()
-    {
-        this.setState({active: 0});
-        this.setState({userData: undefined});
-        getUserData(3, this.setUserData, this);
-    }
-    setUserData(data, t)
-    {
-      t.setState({userData: data});
+        this.state = getUserData(3);
+        this.state.active = 0;
     }
 
     hasActiveChat() {
@@ -28,9 +20,6 @@ export default class Index extends React.Component {
         this.setState({ value: e.target.value });
     }
 
-
-    // this function will no longer work since getUserData has changed
-    // idk who is using this
     getNameOfChat() {
         return getUserData(this.state.chats[this.state.active].chatID).fullName;
     }
@@ -67,15 +56,12 @@ export default class Index extends React.Component {
     }
 
   render() {
-
         var chatName = "";
         if(this.hasActiveChat())
             chatName;
-
     return (
         <div>
           <Navbar />
-
           <div style={{paddingTop: 70}}>
           <div className="container" >
               <div className="row">
@@ -96,13 +82,16 @@ export default class Index extends React.Component {
       <div className="feed-left feed-top">
       </div>
           <div className="feed-body">
-             {this.state.fullName} <hr /></div>
-                     <div className="feed-body">
-                          {this.state.text}
 
+                <Link to={"/profile/" + this.state.chats[this.state.active].chatID}>
+                      {chatName}</Link>
           <div/>
               <div className="feed-body">
-
+                {this.state.chats[this.state.active].messages.map( (map, i) => {
+                  return (
+                  <Post key={i + (this.state.active * 1000)} parentId={this.state.chats[this.state.active].chatID} data={map} />
+                      );
+                  })}
                         </div>
                       </div>
                     </ul>
@@ -135,6 +124,5 @@ export default class Index extends React.Component {
 
     )
   }
-
 
 }
