@@ -164,6 +164,28 @@ app.get("/search/:query", function(req, res) {
       res.send(resultsList);
 });
 
+
+// count describes the top X posts to retreive
+// post calculation is done by upvote/downvote ratio
+app.get("/hot/:count", function(req, res) {
+      var postData = db.readDocument('posts', 0);
+      var resultsList = [];
+      for (var i = 1; i <= postData.count; i++)
+      {
+        var result = db.readDocument('posts', i);
+        resultsList.push(result);
+      }
+
+      resultsList = resultsList.sort(function(a, b) {
+          if (((parseInt(a.upvotes, 10) + 1) / ((parseInt(a.downvotes, 10) + 1))) -
+          ((parseInt(b.upvotes, 10) + 1) / ((parseInt(b.downvotes, 10) + 1))) > 0) return -1;
+          if (((parseInt(a.upvotes, 10) + 1) / ((parseInt(a.downvotes, 10) + 1))) -
+          ((parseInt(b.upvotes, 10) + 1) / ((parseInt(b.downvotes, 10) + 1))) < 0) return 1;
+          return 0;
+      });
+      res.send(resultsList.slice(0, req.params.count));
+});
+
 // Starts the server on port 3000!
 app.listen(port, function () {
     console.log('Geopost listening on port: ' + port);

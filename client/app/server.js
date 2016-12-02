@@ -51,6 +51,15 @@ export function getAllPostsWithText(text, cb, t)
   });
 }
 
+// algorithm for hot posts described in server
+export function getTopXHotPosts(X, cb, t)
+{
+  sendXHR('GET', '/hot/' + X, {
+  }, (xhr) => {
+      cb(JSON.parse(xhr.responseText), t);
+  });
+}
+
 export function getAllCommentsForAPost(postID)
 {
  var postData = readDocument('posts', 0);

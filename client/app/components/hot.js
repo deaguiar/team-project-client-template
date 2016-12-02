@@ -1,6 +1,6 @@
 import React from 'react';
 import Navbar from './navbar';
-import {getUserData, getAllPostsWithText} from '../server.js';
+import {getUserData, getTopXHotPosts} from '../server.js';
 import {unixTimeToString} from '../util.js';
 import SearchResultsComments from './SearchResultsComments'
 
@@ -8,14 +8,44 @@ export default class Hot extends React.Component {
     constructor(props) {
         super(props);
         this.state = props.data;
+        this.posts = [];
       }
+
+      setPosts(data, t)
+      {
+        t.posts = data;
+        t.forceUpdate();
+      }
+
+      componentDidMount()
+      {
+          getTopXHotPosts(10, this.setPosts, this);
+      }
+
+      onCommentsClick(postID)
+      {
+        for (var post in this.posts)
+        {
+          if (this.posts[post].postID == postID)
+          {
+            if (this.posts[post].showComments == false)
+            {
+              this.posts[post].showComments = true;
+            }
+            else
+            {
+              this.posts[post].showComments = false;
+            }
+          }
+        }
+        this.forceUpdate();
+      }
+
       render() {
-        this.query = 'h'
-        this.posts = getAllPostsWithText(this.query);
         return (
           <div>
             <Navbar/>
-              <div className="container">
+              <div className="container" style={{paddingTop: 70 + 'px'}}>
                 {this.posts.map(function(post)
                   {
                     return (
