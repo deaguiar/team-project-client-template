@@ -140,7 +140,7 @@ export default class Hot extends React.Component {
                               <li role="presentation" className="active">
                                 <div className="controls text-wrap">
                                   <div className="form-control-static post-text">
-                                    <div>Unable to retreive hot posts</div>
+                                    <div>Unable to retrieve hot posts</div>
                                   </div>
                                 </div>
                               </li>
