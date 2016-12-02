@@ -1,7 +1,7 @@
 
 import React from 'react';
 import Navbar from './navbar.js';
-import {getUserData, messageUser, readMessage,getAllPostsWithText} from '../server.js';
+import {getUserData, messageUser, readMessage} from '../server.js';
 import {Link} from 'react-router';
 import Post from './post.js';
 
@@ -10,8 +10,6 @@ export default class Index extends React.Component {
         super(props);
         this.state = getUserData(3);
         this.state.active = 0;
-        this.query = 'h'
-        this.posts = getAllPostsWithText(this.query);
     }
 
     hasActiveChat() {
@@ -88,10 +86,10 @@ export default class Index extends React.Component {
       </div>
           <div className="feed-body">
 
-             
+
           <div/>
               <div className="feed-body">
-                
+
                         </div>
                       </div>
                     </ul>
