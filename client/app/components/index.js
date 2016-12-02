@@ -88,15 +88,10 @@ export default class Index extends React.Component {
       </div>
           <div className="feed-body">
 
-                <Link to={"/profile/" + this.state.chats[this.state.active].chatID}>
-                      {chatName}</Link>
+             
           <div/>
               <div className="feed-body">
-                {this.state.chats[this.state.active].messages.map( (map, i) => {
-                  return (
-                  <Post key={i + (this.state.active * 1000)} parentId={this.state.chats[this.state.active].chatID} data={map} />
-                      );
-                  })}
+                
                         </div>
                       </div>
                     </ul>
