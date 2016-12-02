@@ -1,25 +1,36 @@
 import React from 'react';
-import {getAllCommentsForAPost, getUserData} from '../server.js';
+import {getAllCommentsForAPost} from '../server.js';
 
 export default class SearchResultsComments extends React.Component
 {
   constructor(props)
   {
     super(props);
+    this.comments = [];
+  }
+
+  setComments(data, t)
+  {
+    t.posts = data;
+    //t.forceUpdate();
+  }
+
+  componentDidMount()
+  {
+    getAllCommentsForAPost(this.props.postID, this.setComments, this);
   }
 
   render()
   {
-    var comments = getAllCommentsForAPost(this.props.postID);
 
-    if (comments.length > 0)
+    if (this.comments.length > 0)
     {
       return (
         <div>
         <div style={{"borderStyle": "groove"}} />
           <div className="row">
             <div className="col-md-10 forceWidth" style={{display: "block"}}>
-              {comments.map(function(comment)
+              {this.comments.map(function(comment)
                 {
                   return (
                     <div>
@@ -34,7 +45,7 @@ export default class SearchResultsComments extends React.Component
                             </div>
                           </li>
                           <li className="pull-right">
-                            <a href="/profile.html" className="override-boostrap-hyperlink">{getUserData(comment.user).fullName}</a>
+                            <a href="/profile.html" className="override-boostrap-hyperlink">{comment.person.fullName}</a>
                           </li>
                         </ul>
                       </div>

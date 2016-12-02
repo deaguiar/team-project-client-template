@@ -157,11 +157,45 @@ app.get("/search/:query", function(req, res) {
         var result = db.readDocument('posts', i);
         if( result.postText.indexOf(req.params.query) >= 0)
         {
+
+          var userData = db.readDocument('users', result.user);
+          result.person = userData;
           resultsList.push(result);
         }
       }
 
       res.send(resultsList);
+});
+
+app.get("/user/:userID", function(req, res) {
+    var userData = db.readDocument('users', req.params.userID);
+    res.send(userData);
+});
+
+app.get("/getcomments/:postID", function(req, res) {
+  var postData = db.readDocument('posts', 0);
+  for (var i = 1; i <= postData.count; i++)
+  {
+    var result = db.readDocument('posts', i);
+    if (result.postID == req.params.postID)
+    {
+      var resultsList = [];
+      var comments = db.readDocument('comments', 0);
+      for(var count = 1; count <= comments.count; count++)
+      {
+        var result2 = db.readDocument('comments', count);
+        if (result.commentsIDList.indexOf(count) >= 0)
+        {
+          var userData = db.readDocument('users', result.user);
+          result2.person = userData;
+          resultsList.push(result2);
+        }
+      }
+      res.send(resultsList);
+      return;
+    }
+  }
+  res.send(null);
 });
 
 

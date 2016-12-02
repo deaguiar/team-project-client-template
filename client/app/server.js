@@ -11,12 +11,12 @@ function emulateServerReturn(data, cb) {
   }, 4);
 }
 
-export function getUserData(userID)
+export function getUserData(userID, cb)
 {
-    //
-  var userData = readDocument('users', userID);
-  //emulateServerReturn(userData, cb);
-  return userData;
+  sendXHR('GET', '/user/' + userID,
+      undefined, (xhr) => {
+      cb(JSON.parse(xhr.responseText));
+  });
 }
 
 export function getMessageList(user, cb) {
@@ -60,27 +60,15 @@ export function getTopXHotPosts(X, cb, t)
   });
 }
 
-export function getAllCommentsForAPost(postID)
-{
- var postData = readDocument('posts', 0);
- for (var i = 1; i <= postData.count; i++)
- {
-   var result = readDocument('posts', i);
-   if (result.postID == postID)
-   {
-     var resultsList = [];
-     var comments = readDocument('comments', 0);
-     for(var count = 1; count <= comments.count; count++)
-     {
-       var result2 = readDocument('comments', count);
-       if (result.commentsIDList.indexOf(count) >= 0)
-         resultsList.push(result2);
-     }
-     return resultsList;
-   }
+/**
+ * Adds a new comment to the database on the given feed item.
+ */
+ export function getAllCommentsForAPost(postID, cb, t) {
+     sendXHR('GET', '/getcomments/' + postID,{}, (xhr) => {
+         cb(JSON.parse(xhr.responseText), t);
+     });
  }
- return null;
-}
+
 /**
  * Adds a new comment to the database on the given feed item.
  */
@@ -92,6 +80,7 @@ export function getAllCommentsForAPost(postID)
          cb(JSON.parse(xhr.responseText));
      });
  }
+
 export function postStatusUpdate(user, location, contents, cb) {
 
 var newStatusUpdate = {

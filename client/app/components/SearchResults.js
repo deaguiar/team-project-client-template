@@ -1,5 +1,5 @@
 import React from 'react';
-import {getAllPostsWithText, getUserData} from '../server.js';
+import {getAllPostsWithText} from '../server.js';
 import {unixTimeToString, createMapURL} from '../util.js'
 import Navbar from './navbar'
 import SearchResultsComments from './SearchResultsComments'
@@ -12,6 +12,7 @@ export default class SearchResults extends React.Component
 
     this.query = this.props.params.query;
     this.posts = [];
+    this.userData = [];
   }
 
   setPosts(data, t)
@@ -19,6 +20,7 @@ export default class SearchResults extends React.Component
     t.posts = data;
     t.forceUpdate();
   }
+
   componentDidMount()
   {
       getAllPostsWithText(this.query, this.setPosts, this);
@@ -68,7 +70,7 @@ export default class SearchResults extends React.Component
                                 <img width="200" src={createMapURL(post.lat, post.long)}/>
                               </li>
                               <li className="pull-right">
-                                <a href="/profile.html" className="override-boostrap-hyperlink">{getUserData(post.user).fullName}</a>
+                                <a href="/profile.html" className="override-boostrap-hyperlink">{post.person.fullName}</a>
                                 <br></br><text>{unixTimeToString(post.date)}</text>
                               </li>
                               <li role="presentation" className="active">
@@ -106,7 +108,7 @@ export default class SearchResults extends React.Component
                           </div>
                         </div>
                       </div>
-                      {post.showComments ? <SearchResultsComments postID={post.postID} /> : null}
+                      {post.showComments ? <SearchResultsComments postID={post.postID}/> : null}
                     </div>
                   )
                 }, this)
