@@ -55,7 +55,7 @@ export default class Hot extends React.Component {
                             <div className="col-md-10 col-centered">
                               <ul className="nav nav-pills">
                                 <li className="pull-right">
-                                  <a href="/profile.html" className="override-boostrap-hyperlink">{getUserData(post.user).fullName}</a>
+                                  <a href="/profile.html" className="override-boostrap-hyperlink">{post.person.fullName}</a>
                                   <br></br><text>{unixTimeToString(post.date)}</text>
                                 </li>
                                 <li role="presentation" className="active">

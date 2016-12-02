@@ -207,6 +207,8 @@ app.get("/hot/:count", function(req, res) {
       for (var i = 1; i <= postData.count; i++)
       {
         var result = db.readDocument('posts', i);
+        var userData = db.readDocument('users', result.user);
+        result.person = userData;
         resultsList.push(result);
       }
 
