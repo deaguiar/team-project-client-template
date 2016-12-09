@@ -1,4 +1,5 @@
 
+
 // Imports
 var express = require('express');
 var app = express();
@@ -54,12 +55,6 @@ app.get("/user/:userid", function(req, res) {
 function postMessage(fromId, chatid, message) {
     var userInfo = db.readDocument('users', fromId);
     var chat = db.readDocument('messages', userInfo.chat);
-
-    var feed = {
-        "from": fromId,
-        "message": message,
-
-    }
 
     var message = {
         "from": fromId,
@@ -123,23 +118,6 @@ function formatChat(chat) {
     }
     return chat;
 }
-
-app.get("/:userid/posts", function(req, res) {
-   if(checkAuth(req, res)) {
-       var id = parseInt(req.params.userid, 10);
-       var user = db.readDocument('users', id);
-           if(user.post === -1) {
-              var newDoc = db.addDocument('posts', {
-               "poster": id,
-               "posts": []
-           });
-           user.post = newDoc._id;
-       }
-       res.send(formatChat(db.readDocument('post', user.post)));
-   }  else {
-       res.status(401).end();
-   }
-});
 
 app.get("/:userid/messages", function(req, res) {
    if(checkAuth(req, res)) {
