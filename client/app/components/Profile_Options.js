@@ -4,16 +4,13 @@ import { getUserData } from '../server.js'
 export default class Profile_Options extends React.Component {
   constructor(props) {
     super(props);
-    this.state = props.data;
-  }
-
-  setUserData(data, t)
-  {
-    t.setState({data: data});
+    this.state = {};
   }
 
   componentDidMount() {
-    getUserData(4, this.setUserData, this);
+    getUserData(3, (data) => {
+      this.setState(data);
+    });
   }
 
   popAlert(e) {
@@ -22,13 +19,12 @@ export default class Profile_Options extends React.Component {
   }
 
   render(){
-    var user = this.state.id;
 
     return (
       <div>
         <div className="row">
           <div className="col-md-12">
-            <img src={user.pic} style={{width:'75%'}} />
+            <img src={this.state.pic} style={{width:'75%'}} />
             <br /><a href="#/settings/">Update Profile Picture</a>
           </div>
         </div>
