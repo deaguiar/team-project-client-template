@@ -4,7 +4,17 @@ import { getUserData } from '../server.js';
 export default class Settings_Table extends React.Component {
   constructor(props) {
     super(props);
-    this.state = getUserData(3);
+    this.state = {
+      settings: [
+          {userName: "", email: "", city: ""}
+      ]
+    }
+  }
+
+  componentDidMount() {
+    getUserData(3, (data) => {
+      this.setState(data);
+    });
   }
 
   render() {

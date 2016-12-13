@@ -21,7 +21,7 @@ export default class Profile_Settings extends React.Component {
                 <div className="col-md-1">
                 </div>
                 <div className="col-md-3 right-bar">
-                  <Profile_Options />
+                
                 </div>
               </div>
             </div>

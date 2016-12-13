@@ -15,7 +15,7 @@ export function getUserData(userID, cb, t)
 {
   sendXHR('GET', '/user/' + userID,
       undefined, (xhr) => {
-      cb(JSON.parse(xhr.responseText), t);
+        cb(JSON.parse(xhr.responseText), t);
   });
 }
 

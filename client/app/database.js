@@ -30,7 +30,6 @@ var initialData = {
                     "pic": "img/kappa.png",
                     "text": "this feed is still a work in progress",
                     "chat": 3,
-                      "text": "this feed is still a work in progress",
                     "settings":[
                         {
                             "userName": "Orange",
