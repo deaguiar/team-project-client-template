@@ -52,14 +52,6 @@ app.get("/user/:userid", function(req, res) {
     }
 });
 
-app.get("/user/:userid/settings", function(req, res) {
-    if (checkAuth(req, res)) {
-        res.send(db.readDocument('users', parseInt(req.params.userid.settings[0], 10)));
-    } else {
-        res.status(401).end();
-    }
-});
-
 function postMessage(fromId, chatid, message) {
     var userInfo = db.readDocument('users', fromId);
     var chat = db.readDocument('messages', userInfo.chat);

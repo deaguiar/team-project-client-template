@@ -1,7 +1,7 @@
 
 import React from 'react';
 import Navbar from './navbar';
-import {getAllCommentsForAPost, getTopXHotPosts,getUserData, messageUser, readMessage, getMessageList} from '../server.js';
+import {getAllCommentsForAPost, getTopXHotPosts,getUserData,getAllPostsWithText, messageUser, readMessage, getMessageList} from '../server.js';
 import {createMapURL} from '../util.js';
 
 
@@ -12,7 +12,9 @@ export default class Index extends React.Component {
         this.state = props.data;
         this.posts = [];
         this.comments = [];
-        this.state = {};
+        this.state = {
+          value: ""
+        }
       }
 
       setComments(data, t)
@@ -38,37 +40,6 @@ export default class Index extends React.Component {
       }
 
 
-      isChatActive(chatId) {
-          return chatId == this.state.active;
-      }
-
-      handleConvoChange(event) {
-          if(this.state.active == event)
-              return;
-          readMessage(3, event, (cb) => {
-              cb.active = event;
-              this.setState(cb);
-          });
-      }
-
-      isRead(id) {
-          return this.state.chats[id].read;
-      }
-
-      handleMessageEvent(event) {
-          event.preventDefault();
-          if(!this.hasActiveChat())
-              return;
-          if(event.button == 0) {
-              var text = this.state.value.trim();
-              var callback = (updatedMessage) => {
-                  this.setState(updatedMessage);
-              }
-              messageUser(this.state.id, this.state.active, text, callback);
-              this.setState({value: ""});
-          }
-      }
-
       setPosts(data, t)
       {
         t.posts = data;
@@ -77,6 +48,10 @@ export default class Index extends React.Component {
         {
           getAllCommentsForAPost(t.posts[post].postID, t.setComments, t);
         }
+      }
+      getLastMessage() {
+          var length = this.state.postText.length;
+          return this.state.posts[length - 1].postText;
       }
 
       componentDidMount()
@@ -87,19 +62,31 @@ export default class Index extends React.Component {
           getUserData(3, this.setUserData, this);
           this.refresh();
       }
-      handleMessageEvent(event) {
-          event.preventDefault();
-          if(!this.hasActiveChat())
-              return;
-          if(event.button == 0) {
-              var text = this.state.value.trim();
-              var callback = (updatedMessage) => {
-                  this.setState(updatedMessage);
-              }
-              messageUser(this.state.chatOwner._id, this.state.active, text, callback); //only will update ourselves for now!
-              //messageUser(this.state.chats[this.state.active].chatID, text, callback);
-              this.setState({value: ""});
+
+      handleChange(e) {
+        e.preventDefault();
+        this.setState({ value: e.target.value });
+      }
+      onPost(postContents) {
+        // Send to server.
+        // We could use geolocation to get a location, but let's fix it to Amherst
+        // for now.
+      getAllPostsWithText(4, "Amherst, MA", postContents, () => {
+          // Database is now updated. Refresh the feed.
+          this.refresh();
+        });
+      }
+
+      handleKeyUp(e) {
+        e.preventDefault();
+        if (e.key === "Enter") {
+          var comment = this.state.value.trim();
+          if (comment !== "") {
+            // Post comment
+            this.props.onPost(this.state.value);
+            this.setState({ value: "" });
           }
+        }
       }
 
       render() {
@@ -131,6 +118,7 @@ export default class Index extends React.Component {
                 {this.posts.map(function(post)
                   {
                     return (
+                    
                               <ul className="feed-list">
                                   <div className="feed-body">
                                     <span className="glyphicon glyphicon-map-marker"></span>
@@ -166,10 +154,10 @@ export default class Index extends React.Component {
                          <div className="media-footer">
                            <div className="input-group">
                              <input type="text" className="form-control" placeholder="Post a comment..."
-                                                       value={this.state.value}
-                                                       onChange={(e) => this.handleChange(e)}/>
+                               value={this.state.value} onChange={(e) => this.handleChange(e)}
+                               onKeyUp={(e) => this.handleKeyUp(e)} />
                   <span className="input-group-btn">
-                        <button type="button" className="btn btn-default" onClick={(e) => this.handleMessageEvent(e)}>
+                        <button type="button" className="btn btn-default" onClick={(e) => this.handleChange(e)}>
                           <span className="glyphicon glyphicon-map-marker" />
                     </button>
                           </span>

@@ -56,15 +56,17 @@ export default class MessageFrame extends React.Component {
         if(this.hasActiveChat()) {
             return (
                 <div>
-                    <Link to={"/profile/" + this.state.chats[this.state.active].chatID._id}>
-                    {this.state.chats[this.state.active].chatName}</Link>
-                    <div className="btn-group pull-right" role="group">
-                        <button type="button" className="btn btn-default new-message">
-                            <span className="glyphicon glyphicon-road"> Last Location</span>
-                        </button>
+                    <div className ="panel-heading">
+                        <Link to={"/profile/" + this.state.chats[this.state.active].chatID._id}>
+                        {this.state.chats[this.state.active].chatName}</Link>
+                        <div className="btn-group pull-right" role="group">
+                            <button type="button" className="btn btn-default new-message">
+                                <span className="glyphicon glyphicon-road"> Last Location</span>
+                            </button>
+                        </div>
                     </div>
                     <hr />
-                    <div className="media-list message-panel">
+                    <div className="panel-body media-list message-panel message-body">
                         {this.state.chats[this.state.active].messages.map( (map, i) => {
                             return (
                                 <Messages key={i + (this.state.active * 1000)} parentId={this.state.chatOwner} data={map} />
@@ -74,7 +76,7 @@ export default class MessageFrame extends React.Component {
                 </div>
             );
         } else {
-            return (<div>Click a conversation to view messages!<hr /></div>)
+            return (<div className="panel-heading">Click a conversation to view messages!<hr /></div>)
         }
     }
 
@@ -129,9 +131,7 @@ export default class MessageFrame extends React.Component {
                   </div>
                   <div className="col-md-9">
                       <div className="panel conv-panel">
-                          <div className="panel-heading">
                               {this.isConvoActive()}
-                          </div>
                           <div className="panel-footer">
                               <div className="input-group">
                                   <input type="text" className="form-control message-bar" placeholder="Send a message"
