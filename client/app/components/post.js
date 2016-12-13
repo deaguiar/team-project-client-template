@@ -5,13 +5,49 @@ export default class Post extends React.Component {
     constructor(props) {
         super(props);
         this.comments = this.props.comments;
+        this.state = {
+          // Value of the text entry box.
+          value: ""
+        };
 
+    }
+
+
+    /**
+     * Called when the user clicks the 'post' button.
+     * Triggers the `onPost` prop if the post isn't empty, and clears
+     * the component.
+     */
+    handlePost(e) {
+      // Prevent the event from "bubbling" up the DOM tree.
+      e.preventDefault();
+      // Trim whitespace from beginning + end of entry.
+      var statusUpdateText = this.state.value.trim();
+      if (statusUpdateText !== "") {
+        // Tell parent about post.
+        this.props.onPost(statusUpdateText, this.state.imageUri);
+        // Reset status update.
+        this.setState({value: "", imageUri: null});
+      }
+    }
+
+    /**
+     * Called when the user types a character into the status update box.
+     * @param e An Event object.
+     */
+    handleChange(e) {
+      // Prevent the event from "bubbling" up the DOM tree.
+      e.preventDefault();
+      // e.target is the React Virtual DOM target of the input event -- the
+      // <textarea> element. The textarea's `value` is the entire contents of
+      // what the user has typed in so far.
+      this.setState({value: e.target.value});
     }
 
     render()
     {
 
-      
+
         return (
           <div>
           <div style={{"borderStyle": "groove"}} />
