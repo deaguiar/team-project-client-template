@@ -8,7 +8,9 @@
   "dependencies": {
     "body-parser": "^1.15.0",
     "express": "^4.13.4",
-    "express-jsonschema": "^1.1.0"
+    "express-jsonschema": "^1.1.0",    
+    "mongo-express": "^0.30.40",
+    "mongodb": "^2.1.14"
   },
   "devDependencies": {
     "eslint": "^2.4.0",
