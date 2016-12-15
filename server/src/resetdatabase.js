@@ -10,7 +10,7 @@ var initialData = {
             // This user has id "1".
             "1":
                 {
-                    "_id": 1,
+                    "_id": new ObjectID("000000000000000000000001"),
                     "fullName": "Person 1",
                     "pic": "img/profile_img.jpg",
                     "chat": -1,
@@ -19,18 +19,18 @@ var initialData = {
                 },
             "2":
                 {
-                    "_id": 2,
+                    "_id": new ObjectID("000000000000000000000002"),
                     "fullName": "Person 2",
                     "pic": "img/BibleThump.png",
                     "chat": -1,
-                      "post": -1
+                    "post": -1
                 },
             "3":
                 {
-                    "_id": 3,
+                    "_id": new ObjectID("000000000000000000000003"),
                     "fullName": "Tim Richards",
                     "pic": "img/kappa.png",
-                    "chat": 3,
+                    "chat": new ObjectID("000000000000000000000003"),
                     "settings":[
                         {
                             "userName": "Orange",
@@ -50,60 +50,60 @@ var initialData = {
                 },
             "1":
                 {
-                    "postID": 1,
-                    "user": 1,
+                    "postID": new ObjectID("000000000000000000000001"),
+                    "user": new ObjectID("000000000000000000000001"),
                     "showComments": false,
                     "date": 1451606400,
                     "upvotes": 127,
                     "downvotes": 6790,
                     "lat": 42.389825,
                     "long": -72.528267,
-                    "commentsIDList": [1,2], // when implementing comments, store them by ID so they can be ontained easily
+                    "commentsIDList": [new ObjectID("000000000000000000000001"),new ObjectID("000000000000000000000002")], // when implementing comments, store them by ID so they can be ontained easily
                     "postText": "Lorem ipsum dolor sit amet, ut sit, lobortis eros arcu et imperdiet elit, dolor rhoncus ipsum placerat. Leo eu. Eleifend metus, sem amet egestas diam lorem. Duis dui, mollis cras arcu eget dignissim. Phasellus quam className, gravida ut ut ligula accumsan odio. Eget congue. Ac nec tortor feugiat urna feugiat vivamus, leo interdum, integer neque at justo ac justo, eu duis augue nulla, in tincidunt curabitur eleifend ac. Mauris suspendisse, vel quisque mauris id quis nullam mi, ante quam quam lobortis sed vestibulum pede, risus ut in risus tincidunt at.Morbi at rerum. Pellentesque nunc euismod non id, malesuada euismod. Rerum sapien placerat potenti nunc commodo ullamcorper, lectus tempus fusce massa rutrum sit. Curabitur velit egestas id est, justo enim imperdiet, eget commodo tortor, integer venenatis sagittis, mollis dolor pellentesque. Quisque vehicula venenatis massa, pede in interdum metus, iaculis gravida quam ultrices euismod est, vestibulum ut ultricies nec consectetuer quis. Cras platea id vestibulum tellus nam euismod. Non dictum, diam pede lorem a, ultrices molestiae morbi sed. Purus pulvinar, molestie ut, eu hendrerit ac a dictum eleifend, consequat mattis in sed, arcu nec vestibulum sit sociosqu turpis. Amet quis amet enim dictum, erat nulla nulla amet erat eros placerat, mattis non nunc justo varius lectus a, sed massa sunt vestibulum, turpis lorem. Et et. Potenti massa, nec ut litora ipsum, enim ante nec semper ante duis. Sed eget blandit, mi vestibulum augue placerat vulputate sed, porttitor consectetuer sed mauris veritatis, eget dis accumsan sed pellentesque commodo imperdiet.Sem cras. Per ullamcorper in fusce duis varius porttitor, ut mi ante justo iaculis. Ligula quam, non quam id suspendisse ac wisi, curabitur justo nisl at nec sem, scelerisque aliquam nam, sem lacus erat donec vel. Quis sed at, turpis lectus, tempor mattis morbi luctus magna euismod nam, mauris tincidunt. In ante dignissim nullam natoque leo. Lectus accumsan nulla a pellentesque. Eu est fusce vel, quis sed ipsum senectus non eget, molestie sociis vestibulum fusce justo, rutrum ornare non. Turpis in mollitia dolor, mi etiam massa vulputate lobortis, imperdiet convallis ipsum optio sodales lorem et, faucibus adipiscing nunc ut mauris est ornare. Lacus mollis blandit ullamcorper eu amet. At aliquam mauris cras. Id integer ligula pellentesque eget vehicula nec.Euismod libero vivamus dignissim mi, aliquam neque malesuada suscipit, eu quisque aliquam quam quisque, cupiditate nam. Nam vitae amet urna suspendisse dolorum nisi, proin proin rhoncus aliquet tellus. Enim nam nullam molestias vestibulum suscipit. Viverra vitae leo nam. Ullamcorper ornare, tellus pretium tempus viverra sem, vestibulum vestibulum tempor tristique nibh, et orci at. Lectus lacus congue nec placerat dignissim ut. Sagittis nisl pharetra, proin ipsum feugiat ac iaculis aliquam porta, diam ut at. Nibh erat, in nec amet ut ac nunc erat, phasellus tempus metus, faucibus ante odio interdum convallis venenatis. Erat sagittis aliquam nam vestibulum venenatis porttitor, lobortis volutpat et, integer vestibulum aenean vivamus nisl est, sed suscipit, quam cras metus lacus at est pellentesque. Dictum cubilia cras, integer fusce justo, vel mi, nunc consectetuer ipsum enim inceptos nam erat. Nulla vel, erat ante leo ullamcorper diam fringilla, felis luctus mauris, donec mi fusce posuere sit rhoncus."
                 },
             "2":
                 {
-                    "postID": 2,
-                    "user": 3,
+                    "postID": new ObjectID("000000000000000000000002"),
+                    "user": new ObjectID("000000000000000000000003"),
                     "showComments": false,
                     "date": 1478979886,
                     "upvotes": 1023,
                     "downvotes": 12,
                     "lat": 42.3601,
                     "long":  -71.0589,
-                    "commentsIDList": [1,2], // when implementing comments, store them by ID so they can be ontained easily
+                    "commentsIDList": [new ObjectID("000000000000000000000001"),new ObjectID("000000000000000000000002")], // when implementing comments, store them by ID so they can be ontained easily
                     "postText": "Lorem ipsum dolor sit amet, ut sit, lobortis eros arcu et imperdiet elit, dolor rhoncus ipsum placerat. Leo eu. Eleifend metus, sem amet egestas diam lorem. Duis dui, mollis cras arcu eget dignissim. Phasellus quam className, gravida ut ut ligula accumsan odio. Eget congue. Ac nec tortor feugiat urna feugiat vivamus, leo interdum, integer neque at justo ac justo, eu duis augue nulla, in tincidunt curabitur eleifend ac. Mauris suspendisse, vel quisque mauris id quis nullam mi, ante quam quam lobortis sed vestibulum pede, risus ut in risus tincidunt at.Morbi at rerum. Pellentesque nunc euismod non id, malesuada euismod. Rerum sapien placerat potenti nunc commodo ullamcorper, lectus tempus fusce massa rutrum sit. Curabitur velit egestas id est, justo enim imperdiet, eget commodo tortor, integer venenatis sagittis, mollis dolor pellentesque. Quisque vehicula venenatis massa, pede in interdum metus, iaculis gravida quam ultrices euismod est, vestibulum ut ultricies nec consectetuer quis. Cras platea id vestibulum tellus nam euismod. Non dictum, diam pede lorem a, ultrices molestiae morbi sed. Purus pulvinar, molestie ut, eu hendrerit ac a dictum eleifend, consequat mattis in sed, arcu nec vestibulum sit sociosqu turpis. Amet quis amet enim dictum, erat nulla nulla amet erat eros placerat, mattis non nunc justo varius lectus a, sed massa sunt vestibulum, turpis lorem. Et et. Potenti massa, nec ut litora ipsum, enim ante nec semper ante duis. Sed eget blandit, mi vestibulum augue placerat vulputate sed, porttitor consectetuer sed mauris veritatis, eget dis accumsan sed pellentesque commodo imperdiet.Sem cras. Per ullamcorper in fusce duis varius porttitor, ut mi ante justo iaculis. Ligula quam, non quam id suspendisse ac wisi, curabitur justo nisl at nec sem, scelerisque aliquam nam, sem lacus erat donec vel. Quis sed at, turpis lectus, tempor mattis morbi luctus magna euismod nam, mauris tincidunt. In ante dignissim nullam natoque leo. Lectus accumsan nulla a pellentesque. Eu est fusce vel, quis sed ipsum senectus non eget, molestie sociis vestibulum fusce justo, rutrum ornare non. Turpis in mollitia dolor, mi etiam massa vulputate lobortis, imperdiet convallis ipsum optio sodales lorem et, faucibus adipiscing nunc ut mauris est ornare. Lacus mollis blandit ullamcorper eu amet. At aliquam mauris cras. Id integer ligula pellentesque eget vehicula nec.Euismod libero vivamus dignissim mi, aliquam neque malesuada suscipit, eu quisque aliquam quam quisque, cupiditate nam. Nam vitae amet urna suspendisse dolorum nisi, proin proin rhoncus aliquet tellus. Enim nam nullam molestias vestibulum suscipit. Viverra vitae leo nam. Ullamcorper ornare, tellus pretium tempus viverra sem, vestibulum vestibulum tempor tristique nibh, et orci at. Lectus lacus congue nec placerat dignissim ut. Sagittis nisl pharetra, proin ipsum feugiat ac iaculis aliquam porta, diam ut at. Nibh erat, in nec amet ut ac nunc erat, phasellus tempus metus, faucibus ante odio interdum convallis venenatis. Erat sagittis aliquam nam vestibulum venenatis porttitor, lobortis volutpat et, integer vestibulum aenean vivamus nisl est, sed suscipit, quam cras metus lacus at est pellentesque. Dictum cubilia cras, integer fusce justo, vel mi, nunc consectetuer ipsum enim inceptos nam erat. Nulla vel, erat ante leo ullamcorper diam fringilla, felis luctus mauris, donec mi fusce posuere sit rhoncus."
                 },
             "3":
                 {
-                    "postID": 3,
-                    "user": 2,
+                    "postID": new ObjectID("000000000000000000000003"),
+                    "user": new ObjectID("000000000000000000000002"),
                     "showComments": false,
                     "date": 1506353372,
                     "upvotes": 4649,
                     "downvotes": 3939,
                     "lat": 42.3698,
                     "long":  -71.0586,
-                    "commentsIDList": [1,2], // when implementing comments, store them by ID so they can be ontained easily
+                    "commentsIDList": [new ObjectID("000000000000000000000001"),new ObjectID("000000000000000000000002")], // when implementing comments, store them by ID so they can be ontained easily
                     "postText": "(ง •̀_•́)ง THIS IS OUR TOWN SCRUB (ง •̀_•́)ง \n (ง •̀_•́)ง Yeah, beat it! (ง •̀_•́)ง."
                 },
             "4":
                 {
-                    "postID": 4,
-                    "user": 2,
+                    "postID": new ObjectID("000000000000000000000004"),
+                    "user": new ObjectID("000000000000000000000002"),
                     "showComments": false,
                     "date": 1530000000,
                     "upvotes": 1337,
                     "downvotes": 42,
                     "lat": 42.3604,
                     "long":  -71.0592,
-                    "commentsIDList": [1,2], // when implementing comments, store them by ID so they can be ontained easily
+                    "commentsIDList": [new ObjectID("000000000000000000000001"),new ObjectID("000000000000000000000002")], // when implementing comments, store them by ID so they can be ontained easily
                     "postText": "(ง •̀_•́)ง THIS IS OUR TOWN SCRUBS (ง •̀_•́)ง \n (ง •̀_•́)ง Yeah, beat it! (ง •̀_•́)ง."
                 },
             "5":
                 {
-                    "postID": 5,
-                    "user": 2,
+                    "postID": new ObjectID("000000000000000000000005"),
+                    "user": new ObjectID("000000000000000000000002"),
                     "showComments": false,
                     "date": 1560000000,
                     "upvotes": 9001,
@@ -122,12 +122,12 @@ var initialData = {
                 },
             "1":
                 {
-                    "user": 1,
+                    "user": new ObjectID("000000000000000000000001"),
                     "commentText": "What does that text mean?"
                 },
             "2":
                 {
-                    "user": 2,
+                    "user": new ObjectID("000000000000000000000002"),
                     "commentText": "It's just some meaningless filler text..."
                 }
         },
@@ -135,32 +135,32 @@ var initialData = {
         {
             "3":
                 {
-                    "_id": 3,
-                    "chatOwner": 3,
+                    "_id": new ObjectID("000000000000000000000003"),
+                    "chatOwner": new ObjectID("000000000000000000000003"),
                     "chats": [
                         {
-                            "chatID": 1,//id of user in the chat
+                            "chatID": new ObjectID("000000000000000000000001"),//id of user in the chat
                             "chatName": "Person 1",
                             "read": true,
                             "messages": [
-                                {"from": 1,
+                                {"from": new ObjectID("000000000000000000000001"),
                                     "message": "Why won't my messages save!!",
                                     "timestamp": 34564567
                                 },
-                                {"from": 3,
+                                {"from": new ObjectID("000000000000000000000003"),
                                     "message": "Because you are doing it wrong...",
                                     "timestamp": 35476458
                                 }]
                         },{
-                            "chatID": 2,//id of user in the chat
+                            "chatID": new ObjectID("000000000000000000000002"),//id of user in the chat
                             "chatName": "Person 2",
                             "read": false,
                             "messages": [
-                                {"from": 2,
+                                {"from": new ObjectID("000000000000000000000002"),
                                     "message": "Why won't my messages save!!",
                                     "timestamp": 34564567
                                 },
-                                {"from": 3,
+                                {"from": new ObjectID("000000000000000000000003"),
                                     "message": "Check it homie...",
                                     "timestamp": 35476458
                                 }]
@@ -172,32 +172,32 @@ var initialData = {
             {
                 "3":
                     {
-                        "_id": 3,
-                        "Owner": 3,
+                        "_id": new ObjectID("000000000000000000000003"),
+                        "Owner": new ObjectID("000000000000000000000003"),
                         "posts": [
                             {
-                                "feedID": 1,//id of user in the chat
+                                "feedID": new ObjectID("000000000000000000000001"),//id of user in the chat
                                 "chatName": "Person 1",
                                 "read": true,
                                 "feed": [
-                                    {"from": 1,
+                                    {"from": new ObjectID("000000000000000000000001"),
                                         "message": "my feeed"
 
                                     },
-                                    {"from": 3,
+                                    {"from": new ObjectID("000000000000000000000003"),
                                         "message": "Because you are doing it right..."
 
                                     }]
                             },{
-                                "feedID": 2,//id of user in the chat
+                                "feedID": new ObjectID("000000000000000000000002"),//id of user in the chat
                                 "chatName": "Person 2",
                                 "read": false,
                                 "feed": [
-                                    {"from": 2,
+                                    {"from": new ObjectID("000000000000000000000002"),
                                         "message": "Why won't my messages save!!"
 
                                     },
-                                    {"from": 3,
+                                    {"from": new ObjectID("000000000000000000000003"),
                                         "message": "Check it homie..."
 
                                     }]
@@ -221,7 +221,23 @@ function resetCollection(db, name, cb) {
       return collection[key];
     });
     // Insert objects into the object collection.
-    db.collection(name).insertMany(objects, cb);
+    db.collection(name).insertMany(objects, function()
+    {
+        // build the text index to search by 
+        if (name === "posts")
+        {
+            console.log("Building search index for posts...");
+            db.collection(name).createIndex({postText: "text"}, function(err)
+            {
+                console.log("Finished building search index for posts...");
+                cb();
+            });
+        }
+        else
+        {
+            cb();
+        }
+    });
   });
 }
 

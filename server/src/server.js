@@ -28,24 +28,39 @@ MongoClient.connect(url, function(err, mongodb)
     app.use(bodyParser.json());
     app.use(express.static("../client/build"));
     app.use('/mongo_express', mongo_express(mongo_express_config));
+    
+    /**
+     * Helper function: Sends back HTTP response with error code 500 due to
+     * a database error.
+     */
+    function sendDatabaseError(res, err) {
+        res.status(500).send("A database error occurred: " + err);
+    }
 
     /**
-     * Get the user ID from a token. Returns -1 (an invalid ID)
-     * if it fails.
+     * Get the user ID from a token. Returns -1 (an invalid ID) if it fails.
      */
-    function getUserIdFromToken(authorizationLine) {
+    function getUserIdFromToken(authorizationLine) 
+    {
         try {
-            var token = authorizationLine.slice(7);
-            var regularString = new Buffer(token, 'base64').toString('utf8');
-            var tokenObj = JSON.parse(regularString);
-            var id = tokenObj['id'];
-            if (typeof id === 'number') {
-                return id;
-            } else {
-                return -1;
-            }
+        // Cut off "Bearer " from the header value.
+        var token = authorizationLine.slice(7);
+        // Convert the base64 string to a UTF-8 string.
+        var regularString = new Buffer(token, 'base64').toString('utf8');
+        // Convert the UTF-8 string into a JavaScript object.
+        var tokenObj = JSON.parse(regularString);
+        var id = tokenObj['id'];
+        // Check that id is a number.
+        // Check that id is a string.
+        if (typeof id === 'string') {
+            return id;
+        } else {
+            // Not a number. Return "", an invalid ID.
+            return "";
+        }
         } catch (e) {
-            return -1;
+        // Return an invalid ID.
+        return -1;
         }
     }
 
@@ -180,22 +195,27 @@ MongoClient.connect(url, function(err, mongodb)
         res.status(401).end();
     }
     });
-    app.get("/search/:query", function(req, res) {
-        var postData = db.readDocument('posts', 0);
-        var resultsList = [];
-        for (var i = 1; i <= postData.count; i++)
+
+    app.get("/search/:query", function(req, res) 
+    {
+        mongodb.collection('posts').find( 
         {
-            var result = db.readDocument('posts', i);
-            if( result.postText.indexOf(req.params.query) >= 0)
+                postText: { $regex: req.params.query+"*" , $options: 'i' }
+        }).toArray(function(err, posts, score) 
+        {
+            mongodb.collection('users').find( 
             {
+                    _id: { $in: posts.map(function(post){ return post.user}) }
+            }).toArray(function(err, people) 
+            {
+                posts.map(function(post){
+                    post.person = people.filter(function(p) { return p._id != post.user})[0]
+                    return post;
+                });
+                res.send(posts);
+            });
 
-            var userData = db.readDocument('users', result.user);
-            result.person = userData;
-            resultsList.push(result);
-            }
-        }
-
-        res.send(resultsList);
+        });
     });
 
     app.get("/user/:userID", function(req, res) {
