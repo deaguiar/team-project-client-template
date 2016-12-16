@@ -2,8 +2,8 @@
 import React from 'react';
 import Navbar from './navbar';
 import {getAllCommentsForAPost, getTopXHotPosts,getUserData,getAllPostsWithText, messageUser, readMessage, getMessageList} from '../server.js';
-import {createMapURL} from '../util.js';
-
+import {createMapURL, initMapReact} from '../util.js';
+import ReactDOM from 'react-dom';
 
 
 export default class Index extends React.Component {
@@ -48,6 +48,8 @@ export default class Index extends React.Component {
         {
           getAllCommentsForAPost(t.posts[post].postID, t.setComments, t);
         }
+        if (window.google != undefined)
+          window.initMap = initMapReact(window.google, t.map, t.posts);
       }
       getLastMessage() {
           var length = this.state.postText.length;
@@ -89,25 +91,27 @@ export default class Index extends React.Component {
         }
       }
 
+
       render() {
         if (this.posts.length > 0)
         {
-        var comments = this.comments;
-        this.posts.map(function(a,b){
-          a.comments = comments[b];
-          return a;
-        });
+          var comments = this.comments;
+          this.posts.map(function(a,b){
+            a.comments = comments[b];
+            return a;
+          });
 
-        return (
-          <div>
-            <Navbar/>
-              <div className="container" style={{paddingTop: 70 + 'px'}}>
-                <div className="row">
-                  <div className="col-md-8">
-                    <div style ={{width: 999 + 'px'}}> </div>
-                        <img src="img/sample_map.png" width="100%" />
-                          </div>
-                            <div className ="col-md-4">
+          return (
+            <div>
+              <Navbar/>
+                <div className="container" style={{paddingTop: 70 + 'px'}}>
+                  <div className="row">
+                    <div className="col-md-8">
+                      <div style ={{width: 999 + 'px'}}> </div>
+                          <div id="map" ref={(ref) => {this.map = ref; }}></div>
+                          
+                            </div>
+                              <div className ="col-md-4">
                   <div className= "col-md-10 feed-title white">
                   <span className="glyphicon glyphicon-pencil"></span>
                     <a1>   WHAT ARE PEOPLE SAYING</a1>
@@ -182,7 +186,7 @@ export default class Index extends React.Component {
                     <div className="row">
                       <div className="col-md-8">
                         <div style ={{width: 999 + 'px'}}> </div>
-                            <img src="img/sample_map.png" width="100%" />
+                          <div id="map" ref={(ref) => {this.map = ref; }}></div>
                               </div>
                                 <div className ="col-md-4">
                       <div className= "col-md-10 feed-title white">

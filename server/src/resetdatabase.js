@@ -102,9 +102,9 @@ var initialData = {
                     "date": 1560000000,
                     "upvotes": 9001,
                     "downvotes": 402,
-                    "lat": 42.3601,
-                    "long":  -71.0589,
-                    "commentsIDList": [], // when implementing comments, store them by ID so they can be ontained easily
+                    "lat": 42.2626,
+                    "long":  -71.8023,
+                    "commentsIDList": [], // when implementing comments, store them by ID so they can be obtained easily
                     "postText": "(ง •̀_•́)ง THIS IS OUR TOWN SCRUBs (ง •̀_•́)ง \n (ง •̀_•́)ง Yeah, beat it! (ง •̀_•́)ง."
                 }
         },

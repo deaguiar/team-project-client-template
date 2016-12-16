@@ -33,3 +33,37 @@ export function hideElement(shouldHide) {
     return '';
   }
 }
+
+
+export function initMapReact(google, mapElement, coord_list) 
+{
+  var amherst = {lat: 42.3732,lng: 72.5199};
+  
+  var map = new google.maps.Map(mapElement, {
+    zoom: 4,
+    center: amherst
+  });
+  var infowindow = new google.maps.InfoWindow({
+    content: "Placeholder text..."
+  });
+  for (var p in coord_list)
+  {
+    var temp = {lat: coord_list[p].lat,lng: coord_list[p].long};
+
+    var marker = new google.maps.Marker({
+      position: temp,
+      map: map,
+      title: coord_list[p].postText,
+      animation: google.maps.Animation.DROP
+    });
+
+    google.maps.event.addListener(marker, 'click', function (e) {
+      infowindow.setContent(this.title);
+      infowindow.open(map, this);
+    });
+    
+    marker.setMap(map);
+    map.panTo(marker.getPosition());
+  }
+  map.setZoom(7); 
+}
