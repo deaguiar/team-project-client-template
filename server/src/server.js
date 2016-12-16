@@ -20,15 +20,15 @@ var ObjectID = MongoDB.ObjectID;
 var url = 'mongodb://localhost:27017/GeoPost';
 var ResetDatabase = require('./resetdatabase');
 
-// I renamed the db in the connect function to mongodb, so we could use db during the migration 
-MongoClient.connect(url, function(err, mongodb) 
+// I renamed the db in the connect function to mongodb, so we could use db during the migration
+MongoClient.connect(url, function(err, mongodb)
 {
     //Express
     app.use(bodyParser.text());
     app.use(bodyParser.json());
     app.use(express.static("../client/build"));
     app.use('/mongo_express', mongo_express(mongo_express_config));
-    
+
     /**
      * Helper function: Sends back HTTP response with error code 500 due to
      * a database error.
@@ -40,7 +40,7 @@ MongoClient.connect(url, function(err, mongodb)
     /**
      * Get the user ID from a token. Returns -1 (an invalid ID) if it fails.
      */
-    function getUserIdFromToken(authorizationLine) 
+    function getUserIdFromToken(authorizationLine)
     {
         try {
         // Cut off "Bearer " from the header value.
@@ -196,20 +196,20 @@ MongoClient.connect(url, function(err, mongodb)
     }
     });
 
-    app.get("/search/:query", function(req, res) 
+    app.get("/search/:query", function(req, res)
     {
-        mongodb.collection('posts').find( 
+        mongodb.collection('posts').find(
         {
                 postText: { $regex: req.params.query+"*" , $options: 'i' }
-        }).toArray(function(err, posts, score) 
+        }).toArray(function(err, posts, score)
         {
-            mongodb.collection('users').find( 
+            mongodb.collection('users').find(
             {
                     _id: { $in: posts.map(function(post){ return post.user}) }
-            }).toArray(function(err, people) 
+            }).toArray(function(err, people)
             {
                 posts.map(function(post){
-                    post.person = people.filter(function(p) 
+                    post.person = people.filter(function(p)
                     {
                         return p._id.toString() === post.user.toString();
                     })[0]
@@ -226,19 +226,19 @@ MongoClient.connect(url, function(err, mongodb)
         res.send(userData);
     });
 
-    app.get("/getcomments/:postID", function(req, res) 
-    {   
-        mongodb.collection('posts').find( 
+    app.get("/getcomments/:postID", function(req, res)
+    {
+        mongodb.collection('posts').find(
         {
                 postID: new ObjectID(req.params.postID)
-        }).toArray(function(err, posts) 
+        }).toArray(function(err, posts)
         {
-            mongodb.collection('comments').find( 
+            mongodb.collection('comments').find(
             {
                     _id: {$in: posts[0].commentsIDList.map(function(comment){ return new ObjectID(comment) }) }
-            }).toArray(function(err, comments) 
+            }).toArray(function(err, comments)
             {
-                mongodb.collection('users').find().toArray(function(err, people) 
+                mongodb.collection('users').find().toArray(function(err, people)
                 {
                     comments.map(function(comment){
                         comment.person = people.filter(function(p) { return p._id.toString() === comment._id.toString()})[0]
@@ -254,18 +254,18 @@ MongoClient.connect(url, function(err, mongodb)
     // count describes the top X posts to retreive
     // post calculation is done by upvote/downvote ratio
     app.get("/hot/:count", function(req, res) {
-        mongodb.collection('posts').find().toArray(function(err, posts, score) 
+        mongodb.collection('posts').find().toArray(function(err, posts, score)
         {
-            mongodb.collection('users').find( 
+            mongodb.collection('users').find(
             {
                     _id: { $in: posts.map(function(post){ return post.user}) }
-            }).toArray(function(err, people) 
+            }).toArray(function(err, people)
             {
                 posts.map(function(post){
                     post.person = people.filter(function(p) { return p._id.toString() === post.user.toString()})[0]
                     return post;
                 });
-                posts = posts.sort(function(a, b) 
+                posts = posts.sort(function(a, b)
                 {
                     if (((parseInt(a.upvotes, 10) + 1) / ((parseInt(a.downvotes, 10) + 1))) -
                     ((parseInt(b.upvotes, 10) + 1) / ((parseInt(b.downvotes, 10) + 1))) > 0) return -1;
@@ -277,6 +277,13 @@ MongoClient.connect(url, function(err, mongodb)
             });
         });
     });
+    // Reset the database.
+app.post('/resetdb', function(req, res) {
+  console.log("Resetting database...");
+  ResetDatabase(db, function() {
+    res.send();
+  });
+});
 
     // Starts the server on port 3000!
     app.listen(port, function () {
@@ -292,5 +299,3 @@ MongoClient.connect(url, function(err, mongodb)
     });
 
 });
-
-

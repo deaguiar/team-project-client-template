@@ -4,6 +4,7 @@ import Navbar from './navbar';
 import {getAllCommentsForAPost, getTopXHotPosts,getUserData,getAllPostsWithText, messageUser, readMessage, getMessageList} from '../server.js';
 import {createMapURL, initMapReact} from '../util.js';
 import ReactDOM from 'react-dom';
+import ResetDatabase from './resetdatabase';
 
 
 export default class Index extends React.Component {
@@ -109,7 +110,7 @@ export default class Index extends React.Component {
                     <div className="col-md-8">
                       <div style ={{width: 999 + 'px'}}> </div>
                           <div id="map" ref={(ref) => {this.map = ref; }}></div>
-                          
+<ResetDatabase />
                             </div>
                               <div className ="col-md-4">
                   <div className= "col-md-10 feed-title white">
@@ -122,7 +123,7 @@ export default class Index extends React.Component {
                 {this.posts.map(function(post)
                   {
                     return (
-                    
+
                               <ul className="feed-list">
                                   <div className="feed-body">
                                     <span className="glyphicon glyphicon-map-marker"></span>
@@ -150,6 +151,7 @@ export default class Index extends React.Component {
 
                   }, null)
                 }
+
                 </div>
                 </div>
                 </div>
