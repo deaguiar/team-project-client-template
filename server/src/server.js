@@ -209,7 +209,10 @@ MongoClient.connect(url, function(err, mongodb)
             }).toArray(function(err, people) 
             {
                 posts.map(function(post){
-                    post.person = people.filter(function(p) { return p._id != post.user})[0]
+                    post.person = people.filter(function(p) 
+                    {
+                        return p._id.toString() === post.user.toString();
+                    })[0]
                     return post;
                 });
                 res.send(posts);
@@ -223,60 +226,63 @@ MongoClient.connect(url, function(err, mongodb)
         res.send(userData);
     });
 
-    app.get("/getcomments/:postID", function(req, res) {
-    var postData = db.readDocument('posts', 0);
-    for (var i = 1; i <= postData.count; i++)
-    {
-        var result = db.readDocument('posts', i);
-        if (result.postID == req.params.postID)
+    app.get("/getcomments/:postID", function(req, res) 
+    {   
+        mongodb.collection('posts').find( 
         {
-        var resultsList = [];
-        var comments = db.readDocument('comments', 0);
-        for(var count = 1; count <= comments.count; count++)
+                postID: new ObjectID(req.params.postID)
+        }).toArray(function(err, posts) 
         {
-            var result2 = db.readDocument('comments', count);
-            if (result.commentsIDList.indexOf(count) >= 0)
+            mongodb.collection('comments').find( 
             {
-            var userData = db.readDocument('users', result.user);
-            result2.person = userData;
-            resultsList.push(result2);
-            }
-        }
-        res.send(resultsList);
-        return;
-        }
-    }
-    res.send(null);
+                    _id: {$in: posts[0].commentsIDList.map(function(comment){ return new ObjectID(comment) }) }
+            }).toArray(function(err, comments) 
+            {
+                mongodb.collection('users').find().toArray(function(err, people) 
+                {
+                    comments.map(function(comment){
+                        comment.person = people.filter(function(p) { return p._id.toString() === comment._id.toString()})[0]
+                        return comment;
+                    });
+                    res.send(comments);
+                });
+            });
+        });
     });
 
 
     // count describes the top X posts to retreive
     // post calculation is done by upvote/downvote ratio
     app.get("/hot/:count", function(req, res) {
-        var postData = db.readDocument('posts', 0);
-        var resultsList = [];
-        for (var i = 1; i <= postData.count; i++)
+        mongodb.collection('posts').find().toArray(function(err, posts, score) 
         {
-            var result = db.readDocument('posts', i);
-            var userData = db.readDocument('users', result.user);
-            result.person = userData;
-            resultsList.push(result);
-        }
-
-        resultsList = resultsList.sort(function(a, b) {
-            if (((parseInt(a.upvotes, 10) + 1) / ((parseInt(a.downvotes, 10) + 1))) -
-            ((parseInt(b.upvotes, 10) + 1) / ((parseInt(b.downvotes, 10) + 1))) > 0) return -1;
-            if (((parseInt(a.upvotes, 10) + 1) / ((parseInt(a.downvotes, 10) + 1))) -
-            ((parseInt(b.upvotes, 10) + 1) / ((parseInt(b.downvotes, 10) + 1))) < 0) return 1;
-            return 0;
+            mongodb.collection('users').find( 
+            {
+                    _id: { $in: posts.map(function(post){ return post.user}) }
+            }).toArray(function(err, people) 
+            {
+                posts.map(function(post){
+                    post.person = people.filter(function(p) { return p._id.toString() === post.user.toString()})[0]
+                    return post;
+                });
+                posts = posts.sort(function(a, b) 
+                {
+                    if (((parseInt(a.upvotes, 10) + 1) / ((parseInt(a.downvotes, 10) + 1))) -
+                    ((parseInt(b.upvotes, 10) + 1) / ((parseInt(b.downvotes, 10) + 1))) > 0) return -1;
+                    if (((parseInt(a.upvotes, 10) + 1) / ((parseInt(a.downvotes, 10) + 1))) -
+                    ((parseInt(b.upvotes, 10) + 1) / ((parseInt(b.downvotes, 10) + 1))) < 0) return 1;
+                    return 0;
+                });
+                res.send(posts.slice(0, req.params.count));
+            });
         });
-        res.send(resultsList.slice(0, req.params.count));
     });
 
     // Starts the server on port 3000!
     app.listen(port, function () {
         console.log('Geopost listening on port: ' + port);
     });
+
     app.use(function(err, req, res, next) {
         if (err.name === 'JsonSchemaValidation') {
             res.status(400).end();
