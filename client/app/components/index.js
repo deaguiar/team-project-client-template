@@ -5,6 +5,7 @@ import {getAllCommentsForAPost, getTopXHotPosts,getUserData,getAllPostsWithText,
 import {createMapURL, initMapReact} from '../util.js';
 import ReactDOM from 'react-dom';
 import ResetDatabase from './resetdatabase';
+import ErrorBanner from './errorbanner';
 
 
 export default class Index extends React.Component {
