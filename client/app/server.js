@@ -2,7 +2,7 @@
 import {readDocument, writeDocument} from './database.js';
 
 
-var token = 'eyJpZCI6M30=';
+var token = 'eyJpZCI6IjAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMyJ9';
 export function sendXHR(verb, resource, body, cb) {
     var xhr = new XMLHttpRequest();
     xhr.open(verb, resource);
@@ -18,18 +18,15 @@ export function sendXHR(verb, resource, body, cb) {
             cb(xhr);
         } else {
             var responseText = xhr.responseText;
-            FacebookError('Could not ' + verb + " " + resource + ": Received " +
-             statusCode + " " + statusText + ": " + responseText);
+            console.log(responseText);
         }
     });
     xhr.timeout = 10000;
     xhr.addEventListener('error', function() {
-     FacebookError('Could not ' + verb + " " + resource +
-     ": Could not connect to the server.");
+
      });
      xhr.addEventListener('timeout', function() {
-     FacebookError('Could not ' + verb + " " + resource +
-     ": Request timed out.");
+
      });
     switch (typeof(body)) {
         case 'undefined':

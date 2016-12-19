@@ -14,7 +14,7 @@ export default class MessageFrame extends React.Component {
         }
     }
     refresh() {
-        getMessageList(3, (data) => {
+        getMessageList("000000000000000000000003", (data) => {
            this.setState(data);
         });
     }
@@ -41,7 +41,7 @@ export default class MessageFrame extends React.Component {
         if (this.state.chats[event].read) {
             this.setState({active: event});
         } else {
-            readMessage(3, event, (cb) => {
+            readMessage("000000000000000000000003", event, (cb) => {
                 cb.active = event;
                 this.setState(cb);
             });
@@ -69,7 +69,7 @@ export default class MessageFrame extends React.Component {
                     <div className="panel-body media-list message-panel message-body">
                         {this.state.chats[this.state.active].messages.map( (map, i) => {
                             return (
-                                <Messages key={i + (this.state.active * 1000)} parentId={this.state.chatOwner} data={map} />
+                                <Messages key={i + (this.state.active * 1000)} data={map} />
                             );
                         })}
                     </div>

@@ -6,7 +6,6 @@ export default class Messages extends React.Component {
     constructor(props) {
         super(props);
         this.state = props.data;
-        this.state.chatter = props.parentID;
     }
     render() {
         var user = this.state.from;

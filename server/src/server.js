@@ -67,18 +67,25 @@ MongoClient.connect(url, function(err, mongodb)
     /*
     * Shorten this as it will be called anytime we send the userId.
     */
-    function checkAuth(req, res) {
+    function checkAuth(req) {
         var fromUser = getUserIdFromToken(req.get('Authorization'));
         var useridNumber = parseInt(req.params.userid, 10);
         return fromUser == useridNumber;
     }
 
     app.get("/user/:userid", function(req, res) {
-        if (checkAuth(req, res)) {
-            res.send(db.readDocument('users', parseInt(req.params.userid, 10)));
-        } else {
-            res.status(401).end();
-        }
+        //if (checkAuth(req)) {
+            var id = new ObjectID(parseInt(req.params.userid, 10));
+            getUser(id, function(err, usr) {
+               if(err) {
+                   res.status(500).send("Database error: " + err);
+               }  else {
+                   res.send(usr);
+               }
+            });
+       // } else {
+        //    res.status(401).end();
+        //}
     });
 
     function postMessage(fromId, chatid, message) {
@@ -126,43 +133,148 @@ MongoClient.connect(url, function(err, mongodb)
      * Change status of a conversation to 'read'.
      */
     app.put("/:userid/message/:chat/read", function(req, res) {
-        if(checkAuth(req, res)) {
-            var userId = parseInt(req.params.userid, 10);
-            var user = db.readDocument('messages', userId);
-            user.chats[parseInt(req.params.chat, 10)].read = true;
-            db.writeDocument('messages', user);
-            res.send(user);//we will send the whole thing incase there was a conversation update!
-        } else {
-            res.status(401).end();
-        }
+       // if(checkAuth(req)) {
+            var userId = req.params.userid;
+            obtainMessages(new ObjectID(userId), function(err, chat) {
+                if(err) {
+                    console.log("DATABSE ERROR");
+                } else if (chat == null) {
+                    console.log("MESSAGE DATA NULL");
+                } else {
+                    resolveUserObjects(function(err, map) {
+                        if (err) {
+                            console.log("DATABSE ERROR");
+                        } else if (map == null) {
+                            console.log("MAP DATA NULL");
+                        } else {
+                            mongodb.collection('messages').updateOne({_id: chat._id},
+                                {$set: {"read": true}
+                                }, function(err) {
+                                    if(err) {
+                                        console.log("ERROR TRYING TO UPDATE: "+err);
+                                    }
+                                    chat.chats[parseInt(req.params.chat, 10)].read = true;
+                                    chat.chatOwner = map[chat.chatOwner];
+                                    for (var i = 0; i < chat.chats.length; i++) {
+                                        chat.chats[i].chatID = map[chat.chats[i].chatID];
+                                        for (var j = 0; j < chat.chats[i].messages.length; j++) {
+                                            chat.chats[i].messages[j].from = map[chat.chats[i].messages[j].from];
+                                        }
+                                    }
+                                    res.send(chat);
+                                });
+                        }
+                    });
+                }
+            });
+        //} else {
+         //   res.status(401).end();
+        //}
     });
 
-    function formatChat(chat) {
-        chat.chatOwner = db.readDocument('users', chat.chatOwner);
-        for(var i = 0; i < chat.chats.length; i++) {
-            chat.chats[i].chatID = db.readDocument('users', chat.chats[i].chatID);
-            for(var j = 0; j < chat.chats[i].messages.length; j++) {
-                chat.chats[i].messages[j].from = db.readDocument('users', chat.chats[i].messages[j].from);
+    /**
+     * Resolves a list of user objects. Returns an object that maps user IDs to
+     * user objects.
+     */
+    function resolveUserObjects(callback)
+    {
+            mongodb.collection('users').find().toArray(function(err,users){
+                if(err){
+                    return callback(err);
+                }
+                // Build a map from ID to user object.
+                // (so userMap["4"] will give the user with ID 4)
+                var userMap = {};
+                users.forEach((user) => {
+                    userMap[user._id] = user;
+                });
+                callback(null,userMap);
+            });
+    }
+
+    function obtainMessages(user, callback) {
+        getUser(user, function(err, data) {
+            if (err) {
+                // A database error happened.
+                // Internal Error: 500.
+                //res.status(500).send("Database error: " + err);
+                console.log('ERROR DATABSE!');
+            }else if (data === null) {
+                // Couldn't find the feed in the database.
+                console.log('ERROR USER NOT FOUND!');
+                //res.status(400).send("Could not look up feed for user " + user);
             }
-        }
-        return chat;
+            else{
+                if(user.chat === -1) {//no chat exists!
+                    var newDoc = {
+                        "chatOwner": id,
+                        "chats": []
+                    };
+                    mongodb.collection('messages').insertOne(newDoc, function(er, mes) {
+                        newDoc._id = mes._insertedId
+                        mongodb.collection('users').updateOne({ _id: data._id},
+                            {
+                                $set: {"chat": newDoc._id}
+                            }, function(err) {
+                                newDoc.chatOwner = data;
+                                callback(null, newDoc);
+                            });
+                    });
+
+                } else {
+                    mongodb.collection('messages').findOne({_id: data.chat}, function(err, mes) {
+                        callback(null, mes);
+                    });
+                }
+            }
+        });
+    }
+
+    /**
+     * Gets the user information from the database.
+     * @param userId Id of the user. ObjectID format.
+     * @param callback The function to pass data to.
+     */
+    function getUser(user, callback) {
+        mongodb.collection('users').findOne({ _id: user}, function(err, userData) {
+            if(err)
+                return callback(err);
+            else if(userData == null)
+                return callback(null, null);
+            callback(null, userData);
+        });
     }
 
     app.get("/:userid/messages", function(req, res) {
-    if(checkAuth(req, res)) {
-        var id = parseInt(req.params.userid, 10);
-        var user = db.readDocument('users', id);
-        if(user.chat === -1) {//no chat exists!
-            var newDoc = db.addDocument('messages', {
-                "chatOwner": id,
-                "chats": []
+        //if(checkAuth(req, res)) {
+            var id = req.params.userid;
+            obtainMessages(new ObjectID(id), function(err, chat) {
+                if(err) {
+                    console.log("DATABSE ERROR");
+                } else if (chat == null) {
+                    console.log("MESSAGE DATA NULL");
+                } else {
+                    resolveUserObjects(function(err, map) {
+                        if (err) {
+                            console.log("DATABSE ERROR");
+                        } else if (map == null) {
+                            console.log("MAP DATA NULL");
+                        } else {
+                            chat.chatOwner = map[chat.chatOwner];
+                            for (var i = 0; i < chat.chats.length; i++) {
+                                chat.chats[i].chatID = map[chat.chats[i].chatID];
+                                for (var j = 0; j < chat.chats[i].messages.length; j++) {
+                                    chat.chats[i].messages[j].from = map[chat.chats[i].messages[j].from];
+                                }
+                            }
+                            res.send(chat);
+                        }
+                    });
+                }
             });
-            user.chat = newDoc._id;
-        }
-        res.send(formatChat(db.readDocument('messages', user.chat)));
-    }  else {
-        res.status(401).end();
-    }
+       // }  else {
+        //    res.status(401).end();
+        //}
     });
 
     /**
@@ -171,7 +283,7 @@ MongoClient.connect(url, function(err, mongodb)
      */
     app.put("/:userid/message",
         validate({ body: message_sch}), function(req, res) {
-        if(checkAuth(req, res)) {
+        if(checkAuth(req)) {
             var newConv = postMessage(req.body.from, req.body.chat, req.body.message);
             res.send(newConv);
         } else {
@@ -180,7 +292,7 @@ MongoClient.connect(url, function(err, mongodb)
     });
 
     app.get("/:userid/posts", function(req, res) {
-    if(checkAuth(req, res)) {
+    if(checkAuth(req)) {
         var id = parseInt(req.params.userid, 10);
         var user = db.readDocument('users', id);
             if(user.post === -1) {
@@ -190,7 +302,7 @@ MongoClient.connect(url, function(err, mongodb)
             });
             user.post = newDoc._id;
         }
-        res.send(formatChat(db.readDocument('post', user.post)));
+        res.send(db.readDocument('post', user.post));
     }  else {
         res.status(401).end();
     }
