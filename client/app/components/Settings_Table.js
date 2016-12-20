@@ -12,13 +12,12 @@ export default class Settings_Table extends React.Component {
   }
 
   componentDidMount() {
-    getUserData(3, (data) => {
+    getUserData("000000000000000000000003", (data) => {
       this.setState(data);
     });
   }
 
   render() {
-
     return(
       <div>
         <table className = "table table-hover" style={{width:'600px'}}>
@@ -29,7 +28,7 @@ export default class Settings_Table extends React.Component {
             <td>
               <a href="#" className="pull-right">
                 <span className="glyphicon glyphicon-pencil"></span>
-                Edit
+                  Edit
               </a>
             </td>
           </tr>

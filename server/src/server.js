@@ -75,7 +75,7 @@ MongoClient.connect(url, function(err, mongodb)
 
     app.get("/user/:userid", function(req, res) {
         //if (checkAuth(req)) {
-            var id = new ObjectID(parseInt(req.params.userid, 10));
+            var id = new ObjectID(req.params.userid);
             getUser(id, function(err, usr) {
                if(err) {
                    res.status(500).send("Database error: " + err);

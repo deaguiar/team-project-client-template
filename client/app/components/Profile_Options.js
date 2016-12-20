@@ -8,7 +8,7 @@ export default class Profile_Options extends React.Component {
   }
 
   componentDidMount() {
-    getUserData(3, (data) => {
+    getUserData("000000000000000000000003", (data) => {
       this.setState(data);
     });
   }
