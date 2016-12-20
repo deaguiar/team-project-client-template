@@ -147,13 +147,18 @@ MongoClient.connect(url, function(err, mongodb)
                         } else if (map == null) {
                             console.log("MAP DATA NULL");
                         } else {
+                            var idx = parseInt(req.params.chat, 10);
+                            var chats = {
+                                "$set": {}
+                            };
+                            chats["$set"]["chats."+idx+".read"] = true
                             mongodb.collection('messages').updateOne({_id: chat._id},
-                                {$set: {"read": true}
-                                }, function(err) {
+                                chats
+                                , function(err) {
                                     if(err) {
                                         console.log("ERROR TRYING TO UPDATE: "+err);
                                     }
-                                    chat.chats[parseInt(req.params.chat, 10)].read = true;
+                                    chat.chats[idx].read = true;
                                     chat.chatOwner = map[chat.chatOwner];
                                     for (var i = 0; i < chat.chats.length; i++) {
                                         chat.chats[i].chatID = map[chat.chats[i].chatID];
@@ -260,7 +265,7 @@ MongoClient.connect(url, function(err, mongodb)
                         } else if (map == null) {
                             console.log("MAP DATA NULL");
                         } else {
-                            chat.chatOwner = map[chat.chatOwner];
+                            chat.chatOwner = map[chat.chatOwner];;
                             for (var i = 0; i < chat.chats.length; i++) {
                                 chat.chats[i].chatID = map[chat.chats[i].chatID];
                                 for (var j = 0; j < chat.chats[i].messages.length; j++) {
