@@ -27,6 +27,7 @@ MongoClient.connect(url, function(err, mongodb)
     //Express
     app.use(bodyParser.text());
     app.use(bodyParser.json());
+    app.use(bodyParser.urlencoded({ extended: true }));
     app.use(express.static("../client/build"));
     app.use('/mongo_express', mongo_express(mongo_express_config));
 
@@ -421,7 +422,7 @@ MongoClient.connect(url, function(err, mongodb)
                 mongodb.collection('users').find().toArray(function(err, people)
                 {
                     comments.map(function(comment){
-                        comment.person = people.filter(function(p) { return p._id.toString() === comment._id.toString()})[0]
+                        comment.person = people.filter(function(p) { return p._id.toString() === comment.user.toString()})[0]
                         return comment;
                     });
                     res.send(comments);
@@ -457,13 +458,47 @@ MongoClient.connect(url, function(err, mongodb)
             });
         });
     });
+
     // Reset the database.
-app.post('/resetdb', function(req, res) {
-  console.log("Resetting database...");
-  ResetDatabase(db, function() {
-    res.send();
-  });
-});
+    app.post('/post/comment', function(req, res) {
+        var newID = new ObjectID(); // generate a new random ID for the comment
+        // only allow comments with text to be posted
+        if (req.body.comment !== "")
+        {//_id: new ObjectID(newID) ,
+            mongodb.collection('comments').insert({_id: new ObjectID(newID) ,user: new ObjectID(req.body.author), commentText: req.body.comment}, function(){
+                // now update the related post to include the comment
+                mongodb.collection('posts').updateOne(
+                    { // find the post
+                        postID: new ObjectID(req.body.postID)
+                    },
+                    {
+                        $addToSet: {commentsIDList: newID}
+                    }, function()
+                    {
+                        // the 204 status prevents naviagtion to a different page, it technically means "No content" which is kind of true
+                        // since there is no content at this URL
+                        res.status(204).end();
+                    }
+                );
+            });
+        }
+        else
+        {
+            // otherwise this is a bad request
+            res.status(400).end();
+        }
+
+
+    });
+
+
+    // Reset the database.
+    app.post('/resetdb', function(req, res) {
+    console.log("Resetting database...");
+    ResetDatabase(db, function() {
+        res.send();
+    });
+    });
 
     // Starts the server on port 3000!
     app.listen(port, function () {
