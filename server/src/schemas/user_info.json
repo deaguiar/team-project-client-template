@@ -13,12 +13,16 @@
     },
     "city": {
       "type": "string"
+    },
+    "post": {
+      "type": "string"
     }
   },
   "required": [
     "fullName",
     "userName",
     "email",
-    "city"
+    "city",
+    "post"
   ]
 }
