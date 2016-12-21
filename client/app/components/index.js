@@ -1,9 +1,8 @@
 
 import React from 'react';
 import Navbar from './navbar';
-import {getAllCommentsForAPost, getTopXHotPosts,getUserData,getAllPostsWithText, messageUser, readMessage, getMessageList} from '../server.js';
-import {createMapURL, initMapReact} from '../util.js';
-import ReactDOM from 'react-dom';
+import {getAllCommentsForAPost, getTopXHotPosts,getUserData,editUserData} from '../server.js';
+import {initMapReact} from '../util.js';
 import ResetDatabase from './resetdatabase';
 import ErrorBanner from './errorbanner';
 
@@ -15,30 +14,31 @@ export default class Index extends React.Component {
         this.posts = [];
         this.comments = [];
         this.state = {
-          value: ""
+        post: ""
         }
       }
+      hanldePostData(e) {
+      e.preventDefault();
 
-      setComments(data, t)
-      {
-        t.comments.push(data);
-        t.forceUpdate();
+
+        var newUserData = {fullName: this.state.fullName,
+        userName: this.state.userName, email: this.state.email,
+        city: this.state.city,post:this.state.post};
+
+        editUserData("000000000000000000000003", newUserData, (data) => {
+          this.setState(data);
+
+        });
+
       }
       refresh() {
-          getMessageList(3, (data) => {
-             this.setState(data);
+        getUserData("000000000000000000000003", (data) => {
+          this.setState(data);
           });
       }
       setUserData(data, t)
       {
         t.setState({userData: data});
-      }
-      hasActiveChat() {
-          return this.state.active > -1;
-      }
-
-      handleChange(e) {
-          this.setState({ value: e.target.value });
       }
 
 
@@ -53,44 +53,15 @@ export default class Index extends React.Component {
         if (window.google != undefined)
           window.initMap = initMapReact(window.google, t.map, t.posts);
       }
-      getLastMessage() {
-          var length = this.state.postText.length;
-          return this.state.posts[length - 1].postText;
-      }
 
       componentDidMount()
       {
           getTopXHotPosts(100, this.setPosts, this);
-          this.setState({active: 0});
-          this.setState({userData: undefined});
-          getUserData(3, this.setUserData, this);
           this.refresh();
       }
 
-      handleChange(e) {
-        e.preventDefault();
-        this.setState({ value: e.target.value });
-      }
-      onPost(postContents) {
-        // Send to server.
-        // We could use geolocation to get a location, but let's fix it to Amherst
-        // for now.
-      getAllPostsWithText(4, "Amherst, MA", postContents, () => {
-          // Database is now updated. Refresh the feed.
-          this.refresh();
-        });
-      }
-
-      handleKeyUp(e) {
-        e.preventDefault();
-        if (e.key === "Enter") {
-          var comment = this.state.value.trim();
-          if (comment !== "") {
-            // Post comment
-            this.props.onPost(this.state.value);
-            this.setState({ value: "" });
-          }
-        }
+      onPostChange(e) {
+        this.setState({post: e.target.value});
       }
 
 
@@ -160,11 +131,13 @@ export default class Index extends React.Component {
                     <div className ="col-md-9 post-section">
                          <div className="media-footer">
                            <div className="input-group">
-                             <input type="text" className="form-control" placeholder="Post a comment..."
-                               value={this.state.value} onChange={(e) => this.handleChange(e)}
-                               onKeyUp={(e) => this.handleKeyUp(e)} />
+                             <input type="text" className="form-control" id="form-control" placeholder="Post a comment..."
+                               value={this.state.value}
+                               onChange={(e) => this.onPostChange(e) }/>
+
+
                   <span className="input-group-btn">
-                        <button type="button" className="btn btn-default" onClick={(e) => this.handleChange(e)}>
+                        <button type="button" className="btn btn-default" id="form-control" onClick={(e) => this.hanldePostData(e)}>
                           <span className="glyphicon glyphicon-map-marker" />
                     </button>
                           </span>
