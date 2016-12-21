@@ -9,6 +9,7 @@ var validate = require('express-jsonschema').validate;
 
 var port = 3000;
 var message_sch = require('./schemas/message.json');
+var user_schema = require('./schemas/user_info.json');
 
 var mongo_express = require('mongo-express/lib/middleware');
 // Import the default Mongo Express configuration
@@ -295,6 +296,37 @@ MongoClient.connect(url, function(err, mongodb)
             //}
         });
     });
+
+    app.put("/user/:userid/user_info", validate({user_schema}), function(req, res) {
+      console.log(req.body);
+      var body = req.body;
+      var id = new ObjectID(req.params.userid);
+
+      getUser(id, function(err, data) {
+        if(err) res.status(500).end();
+        else {
+          data.fullName = body.fullName;
+          data.userName = body.userName;
+          data.email = body.email;
+          data.city = body.city;
+          updateUserInfo(id, data, function(err, result) {
+            if(err) res.status(500).end();
+            else res.status(200).send(result);
+          });
+        }
+      });
+    });
+
+    function updateUserInfo(userId, newData, cb) {
+      mongodb.collection('users').updateOne({
+        _id: userId
+      }, newData, function(err, update) {
+        if(err) return cb(err);
+        else return cb(null, update);
+      });
+    }
+
+
 
     /**
      * Send a message.

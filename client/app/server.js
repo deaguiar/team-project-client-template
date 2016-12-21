@@ -3,6 +3,7 @@ import {readDocument, writeDocument} from './database.js';
 
 
 var token = 'eyJpZCI6IjAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMyJ9';
+
 export function sendXHR(verb, resource, body, cb) {
     var xhr = new XMLHttpRequest();
     xhr.open(verb, resource);
@@ -60,6 +61,12 @@ export function getUserData(userID, cb, t)
   sendXHR('GET', '/user/' + userID,
       undefined, (xhr) => {
         cb(JSON.parse(xhr.responseText), t);
+  });
+}
+
+export function editUserData(userID, newData, cb) {
+  sendXHR('PUT', '/user/' + userID + '/user_info', newData, (xhr) => {
+    cb(JSON.parse(xhr.responseText));
   });
 }
 

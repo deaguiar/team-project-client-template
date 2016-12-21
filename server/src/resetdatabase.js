@@ -31,13 +31,9 @@ var initialData = {
                     "fullName": "Tim Richards",
                     "pic": "img/kappa.png",
                     "chat": new ObjectID("000000000000000000000003"),
-                    "settings":[
-                        {
-                            "userName": "Orange",
-                            "email": "tm_orange@something.com",
-                            "city": "Amherst"
-                        }
-                    ]
+                    "userName": "Orange",
+                    "email": "tm_orange@something.com",
+                    "city": "Amherst"
                 }
         },
     "posts":
@@ -215,7 +211,7 @@ function resetCollection(db, name, cb) {
     // Insert objects into the object collection.
     db.collection(name).insertMany(objects, function()
     {
-        // build the text index to search by 
+        // build the text index to search by
         if (name === "posts")
         {
             console.log("Building search index for posts...");
@@ -242,7 +238,7 @@ function resetDatabase(db, cb) {
   // "for" loop over asynchronous operations.
   var collections = Object.keys(initialData);
   var i = 0;
-  
+
   // Processes the next collection in the collections array.
   // If we have finished processing all of the collections,
   // it triggers the callback.
@@ -256,7 +252,7 @@ function resetDatabase(db, cb) {
       cb();
     }
   }
-  
+
   // Start processing the first collection!
   processNextCollection();
 }
