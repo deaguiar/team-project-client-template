@@ -33,7 +33,7 @@ var initialData = {
                     "chat": new ObjectID("000000000000000000000003"),
                     "userName": "Orange",
                     "email": "tm_orange@something.com",
-                    "city": "Amherst"
+                    "city": "Amherst",
                     "post": "You guys you have to 'react' fast to the changes in the web world..."
                 }
         },
