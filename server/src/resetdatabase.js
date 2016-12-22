@@ -14,7 +14,7 @@ var initialData = {
                     "fullName": "Person 1",
                     "pic": "img/profile_img.jpg",
                     "chat": -1,
-                    "post": -1
+                    "post": "Person 1's post"
 
                 },
             "2":
@@ -23,7 +23,7 @@ var initialData = {
                     "fullName": "Person 2",
                     "pic": "img/BibleThump.png",
                     "chat": -1,
-                    "post": -1
+                    "post": "Person 2's post"
                 },
             "3":
                 {
@@ -34,6 +34,7 @@ var initialData = {
                     "userName": "Orange",
                     "email": "tm_orange@something.com",
                     "city": "Amherst"
+                    "post": "You guys you have to 'react' fast to the changes in the web world..."
                 }
         },
     "posts":
