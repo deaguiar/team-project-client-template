@@ -310,6 +310,7 @@ MongoClient.connect(url, function(err, mongodb)
           data.userName = body.userName;
           data.email = body.email;
           data.city = body.city;
+          data.post=body.post;
           updateUserInfo(id, data, function(err, result) {
             if(err) res.status(500).end();
             else res.status(200).send(result);
