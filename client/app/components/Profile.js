@@ -46,7 +46,7 @@ export default class Profile extends React.Component
                                   <img width="200" src={createMapURL(post.lat, post.long)}/>
                                 </li>
                                 <li className="pull-right">
-                                  <Link to="profile/" className="override-boostrap-hyperlink">{getUserData(post.user).fullName}</link>
+                                  <Link to="profile/" className="override-boostrap-hyperlink">{getUserData(post.user).fullName}</a>
                                   <br><text>{unixTimeToString(post.date)}</text></br>
                                 </li>
                                 <li role="presentation" className="active">
