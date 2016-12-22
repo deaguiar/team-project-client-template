@@ -100,7 +100,7 @@ export default class Index extends React.Component {
                                   <div className="feed-body">
                                     <span className="glyphicon glyphicon-map-marker"></span>
 
-                                  <Link to="profile/">{post.person.fullName}</a>
+                                  <Link to="profile/">{post.person.fullName}</link>
                                   <div className="controls text-wrap">
                                     <p className="feed-body">
                                       {post.postText}
